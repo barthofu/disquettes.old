@@ -1,0 +1,30 @@
+<%- include('./head')-%>
+
+    <body class="text-center">
+        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+            <main role="main" class="inner cover">
+                <%- include('./messages')-%>
+                    <h1 class="cover-heading">Form Example</h1>
+                    <form method="POST" action="/api">
+                        <div class="form-group">
+                            <label for="Name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Surname">Surname</label>
+                            <input type="text" class="form-control" id="surname" name="surname" placeholder="Enter Surname" required>
+                        </div>
+                        <button type="submit" class="btn btn-dark">Submit</button>
+                    </form>
+            </main>
+
+        </div>
+    </body>
+    <script>
+        window.onload = function() {
+            document.getElementById('form').classList.add('active');
+        };
+    </script>
+
+    </html>
