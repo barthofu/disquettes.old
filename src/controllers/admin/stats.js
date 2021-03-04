@@ -1,26 +1,27 @@
 const mongoose = require('mongoose')
+
 const waitingDisquette = mongoose.model('waiting', require("../../models/Disquette"), 'waiting')
 const validateDisquette = mongoose.model('validate', require("../../models/Disquette"), 'validate')
 const visites = mongoose.model('visites', require("../../models/Visite"), 'visites')
 const apiRequests = mongoose.model('apiRequests', require("../../models/Visite"), 'apiRequests')
 
-module.exports = (req, res) => {
+module.exports = (req, res, next) => {
 
     let days = 60
 
-    let stats = {}
+    req.args = {}
 
-    stats.totalValidate = getTotalValidate()
+    req.args.totalValidate = getTotalValidate()
 
-    stats.totalValidate = getTotalWaiting()
+    req.args.totalWaiting = getTotalWaiting()
 
-    stats.totalValidate = getTotalTags()
+    req.args.totalTags = getTotalTags()
 
-    stats.totalValidate = getVisitesGraph(days)
+    req.args.totalVisites = getTotalVisites(days)
 
-    stats.totalValidate = getApiRequestsGraph()
+    req.args.totalApiRequests = getTotalApiRequests()
 
-    return stats
+    next()
 
 }
 
@@ -42,7 +43,7 @@ function getTotalTags () {
 
 }
 
-function getVisitesGraph (days) {
+function getTotalVisites (days) {
 
     let now = new Date().getTime()
 
@@ -50,7 +51,7 @@ function getVisitesGraph (days) {
 
 }
 
-function getVisitesGraph (days) {
+function getTotalApiRequests (days) {
 
     let now = new Date().getTime()
 

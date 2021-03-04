@@ -18,13 +18,20 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 
 //Main routes
-app.use('/', require('./routes/index'))
-app.use('/api', require('./routes/api'))
-app.use('/web', require('./routes/web'))
-app.use('/admin', require('./routes/admin'))
+
+const indexRoute = require('./routes/index')
+const apiRoute   = require('./routes/api')
+const webRoute   = require('./routes/web')
+const adminRoute = require('./routes/admin')
+
+app.use('/admin', adminRoute)
+app.use('/', indexRoute)
+app.use('/api', apiRoute)
+app.use('/web', webRoute)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
+    console.log(0)
     next(createError(404));
 });
 
