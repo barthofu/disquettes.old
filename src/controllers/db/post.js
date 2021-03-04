@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Disquette = mongoose.model('waiting', require("../models/Disquette"), 'waiting')
+const Disquette = mongoose.model('waiting', require("../../models/Disquette"), 'waiting')
 
 module.exports = (req, res) => {
 

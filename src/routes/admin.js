@@ -1,25 +1,19 @@
-const express = require('express')
-let router = express.Router();
+const express = require('express');
+const notFound = require('../utils/404')
 
-const pages = ['index', 'list', 'submit', '/', 'overview'];
+const getStats = require('../controllers/admin/stats')
+const checkUser = require('../controllers/admin/checkUser')
+const showDashboard = require('../controllers/admin/showDashboard')
+
+let router = express.Router()
 
 router
-    .get('/', (req, res) => {
-        console.log(req.baseUrl)
-        res.redirect(req.baseUrl +
-            "/overview")
-    })
-    .get(['/:page'], (req, res) => sender(req, res, req.params.page))
+    .get('/', (req, res) => { console.log(1); res.redirect('/admin/overview')})
 
-.post((req, res) => getDisquette(req, res));
+    .get('/overview', checkUser, showDashboard)
+    .get('/list', checkUser, getStats, showDashboard)
+    .get('/waiting', checkUser, showDashboard)
 
-function sender(req, res, page) {
-    if (pages.includes(page)) {
-        return res.render("admin/layout", { page: page, title: "Disquette Admin", admin: false, user: { username: "LeZ", profil_url: "https://via.placeholder.com/150" } })
-    } else {
-
-        res.status(404).send('Not Found!');
-    }
-}
+    .get(notFound)
 
 module.exports = router;

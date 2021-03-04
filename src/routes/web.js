@@ -1,4 +1,5 @@
 const express = require('express')
+const notFound = require('../utils/404')
 
 let router = express.Router();
 

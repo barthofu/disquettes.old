@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+const notFound = require('../utils/404')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+let router = express.Router()
 
-module.exports = router;
+router
+  .get('/', (req, res) => res.send("Page d'accueil"))
+
+module.exports = router
