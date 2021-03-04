@@ -3,14 +3,15 @@ const Disquette = mongoose.model('disquettes', require("../models/Disquette"), '
 
 module.exports = (req, res) => {
 
-    let { tag, age, genre = 2, nb = 10, name = "?????" } = req.body
+    let { tag, age, genre = 2, nb = 10, name = "?????", lang = "FR" } = req.body
 
     if (!tag) return
 
     Disquette
         .find({
             tags: tag,
-            genre
+            genre,
+            lang
         })
         .select({ _id: 0, updatedAt: 0 })
         .exec((e, results) => {
