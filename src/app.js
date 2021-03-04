@@ -14,12 +14,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
+
 
 //Main routes
 app.use('/', require('./routes/index'))
 app.use('/api', require('./routes/api'))
 app.use('/web', require('./routes/web'))
+app.use('/admin', require('./routes/admin'))
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
