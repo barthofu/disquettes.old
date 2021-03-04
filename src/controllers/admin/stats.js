@@ -5,57 +5,67 @@ const validateDisquette = mongoose.model('validate', require("../../models/Disqu
 const visites = mongoose.model('visites', require("../../models/Visite"), 'visites')
 const apiRequests = mongoose.model('apiRequests', require("../../models/Visite"), 'apiRequests')
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
 
     let days = 60
 
     req.args = {}
 
-    req.args.totalValidate = getTotalValidate()
+    req.args.totalValidate = await getTotalValidate()
 
-    req.args.totalWaiting = getTotalWaiting()
+    req.args.totalWaiting = await getTotalWaiting()
 
-    req.args.totalTags = getTotalTags()
+    req.args.totalTags = await getTotalTags()
 
-    req.args.totalVisites = getTotalVisites(days)
+    req.args.totalVisites = await getTotalVisites(days)
 
-    req.args.totalApiRequests = getTotalApiRequests()
+    req.args.totalApiRequests = await getTotalApiRequests()
 
     next()
 
 }
 
-function getTotalValidate () {
+async function getTotalValidate () {
 
-    return validateDisquette.find().exec((err, results) => results.length)
+    let results = await validateDisquette.find().exec()
 
-}
-
-function getTotalWaiting () {
-
-    return waitingDisquette.find().exec((err, results) => results.length)
+    return results.length
 
 }
 
-function getTotalTags () {
+async function getTotalWaiting () {
 
-    return validateDisquette.find().exec((err, results) => [...new Set(results.map(res => res.tags).flatMap(res => res))])
+    let results = await waitingDisquette.find().exec()
+
+    return results.length
 
 }
 
-function getTotalVisites (days) {
+async function getTotalTags () {
+
+    let results = await validateDisquette.find().exec()
+
+    return [...new Set(results.map(res => res.tags).flatMap(res => res))]
+
+}
+
+async function getTotalVisites (days) {
 
     let now = new Date().getTime()
 
-    return visites.find().exec((err, results) => results.filter(res => now - res.createdAt.getTime() < days * 24 * 60 * 60 * 1000))
+    let results = await visites.find().exec()
+
+    return results.filter(res => now - res.createdAt.getTime() < days * 24 * 60 * 60 * 1000)
 
 }
 
-function getTotalApiRequests (days) {
+async function getTotalApiRequests (days) {
 
     let now = new Date().getTime()
 
-    return apiRequests.find().exec((err, results) => results.filter(res => now - res.createdAt.getTime() < days * 24 * 60 * 60 * 1000))
+    let results = await apiRequests.find().exec()
+
+    return results.filter(res => now - res.createdAt.getTime() < days * 24 * 60 * 60 * 1000)
 
 }
 
