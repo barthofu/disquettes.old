@@ -1,6 +1,6 @@
 const express = require('express')
-const getDisquette = require('../controllers/getDisquette')
-const postDisquette = require('../controllers/postDisquette')
+const getDisquette = require('../controllers/db/get')
+const postDisquette = require('../controllers/db/post')
 
 let router = express.Router();
 
