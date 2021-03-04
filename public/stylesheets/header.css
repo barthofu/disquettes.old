@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 :root {
     --primary-text-color: whitesmoke;
     --select-background-color: darkgray;
@@ -7,5 +8,7 @@
 .header {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
+    font-family: Mulish, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
 }

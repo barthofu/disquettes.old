@@ -15,7 +15,7 @@ router
 
 function sender(req, res, page) {
     if (pages.includes(page)) {
-        return res.render("admin/layout", { page: page, title: "Disquette Admin", admin: false, user: { unsername: "LeZ", profil_url: "https://via.placeholder.com/150" } })
+        return res.render("admin/layout", { page: page, title: "Disquette Admin", admin: false, user: { username: "LeZ", profil_url: "https://via.placeholder.com/150" } })
     } else {
 
         res.status(404).send('Not Found!');
