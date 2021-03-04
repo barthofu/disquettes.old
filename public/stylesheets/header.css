@@ -1,0 +1,11 @@
+:root {
+    --primary-text-color: whitesmoke;
+    --select-background-color: darkgray;
+    --background-color: #374151;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

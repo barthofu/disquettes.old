@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./stylesheets/postcssstyle.css" rel="stylesheet">
-    <link href="./stylesheets/sidebar.css" rel="stylesheet">
+    <link href="/stylesheets/normalize.css" rel="stylesheet">
+    <link href="/stylesheets/sidebar.css" rel="stylesheet">
+    <link href="/stylesheets/header.css" rel="stylesheet">
+
 
 
     <title>
@@ -16,11 +18,12 @@
 
 <body>
     <div class="">
-        <div class="">
-            <%- include('./sidebar')-%>
+        <div class="sidebar">
+            <%- include('./partials/sidebar')-%>
         </div>
-        <div class="">
-            <%- include('./' + page)-%>
+        <div class="body" style="margin-left: 12vw; width: 82vw;">
+            <%- include('./partials/header')-%>
+                <%- include('./' + page)-%>
         </div>
     </div>
 </body>

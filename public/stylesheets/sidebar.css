@@ -1,16 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 :root {
     --primary-text-color: whitesmoke;
+    --select-background-color: darkgray;
+    --background-color: #374151;
 }
 
 .side-bar {
-    width: 15vw;
+    width: 12vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #374151;
-    color: var(--primary-text-color)
+    background: var(--background-color);
+    color: var(--primary-text-color);
+    position: fixed;
 }
 
 .logo {
@@ -22,17 +25,25 @@
     display: flex;
     width: 100%;
     align-content: center;
-    padding-left: 2rem;
     height: 4rem;
+}
+
+.current {
+    background-color: var(--select-background-color);
+    box-sizing: border-box;
+    border-left: 0.3rem solid;
 }
 
 .tab .text {
     display: flex;
     align-items: center;
     margin-left: 1rem;
+    font-family: Mulish, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
 }
 
 .tab .svg {
+    margin-left: 2rem;
     width: 1.2rem;
     fill: var(--primary-text-color);
 }
