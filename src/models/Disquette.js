@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const disquetteSchema = mongoose.Schema({
+module.exports = mongoose.Schema({
 
     disquette: [{ type: String, required: true }],
     author: { type: String, required: true },
@@ -14,11 +14,10 @@ const disquetteSchema = mongoose.Schema({
     },
     stats: {
         spawned: [{ type: Date }],
-    }
+    },
+    submittedAt: { type: Date, default: new Date() }
 
 }, {
     timestamps: true,
     versionKey: false
 });
-
-module.exports = disquetteSchema
