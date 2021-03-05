@@ -39,9 +39,9 @@ router
 
 
 .post('/register', register, passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
-function(req, res) {
-  res.redirect('/');
-})
+    function(req, res) {
+        res.redirect('/');
+    })
 
 
 
@@ -54,7 +54,7 @@ function(req, res) {
 
 .get(notFound)
 
-function register (req, res, next) {
+function register(req, res, next) {
 
     console.log('registering user');
     Account.register(new Account({
@@ -65,8 +65,7 @@ function register (req, res, next) {
         }), req.body.password,
         function(err) {
             if (err) {
-                console.log('error while user register!', err);
-                res.redirect('/auth/register');
+                res.render("auth/layout", { page: "register", message: err })
             }
             console.log('user registered!');
             next()

@@ -1,0 +1,42 @@
+<div>
+    <h1>
+        Inscription
+    </h1>
+    <form name="regitser" method="GET" action="">
+        <table>
+            <tr>
+                <select class="tag" multiple="multiple" name="tag">
+                <option selected="selected">orange</option>
+                <option>white</option>
+                <option selected="selected">purple</option>
+              </select>
+            </tr>
+            <tr>
+                <td>Nom</td>
+                <td><input type="text" name="lastName"></td>
+            </tr>
+            <tr>
+                <td>Pseudo</td>
+                <td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+                <td>Mail</td>
+                <td><input type="text" name="mail"></td>
+                <tr>
+                    <td>Mot de passe</td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Save"></td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+<script>
+    $(".tag").select2({
+        tags: true,
+        tokenSeparators: [',', ' ']
+    })
+</script>
