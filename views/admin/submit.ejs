@@ -1,0 +1,56 @@
+<div>
+    <h1>
+        Inscription
+    </h1>
+    <form name="regitser" method="POST" action="">
+        <table>
+            <tr>
+                <td>Tags: </td>
+                <td>
+                    <select class="tag" multiple="multiple" name="tag">
+                <option selected="selected">orange</option>
+                <option>white</option>
+                <option selected="selected">purple</option>
+              </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Disquette</td>
+                <td><input type="text" name="disquette"></td>
+            </tr>
+            <tr>
+                <td>Langue: </td>
+                <td>
+                    <select class="lang" name="lang">
+                <option selected="selected" value="FR">Francais</option>
+                <option value="EN">Anglais</option>
+              </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Autheur</td>
+                <td><input type="text" name="username" placeholder="Laisser vide pour t'assigner en autheur!"></td>
+            </tr>
+            <tr>
+
+                <td>Mot de passe</td>
+                <td><input type="password" name="password"></td>
+            </tr>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Save"></td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+<script>
+    $(".tag").select2({
+        tags: true,
+        tokenSeparators: [',', ' ']
+    })
+    $(".lang").select2({
+        minimumResultsForSearch: Infinity,
+        selectOnClose: true
+    })
+</script>

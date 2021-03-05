@@ -1,5 +1,4 @@
-
-const pages = ['overview', 'list', 'await', 'submit', 'accounts']
+const pages = ['overview', 'list', 'await', 'submit', 'accounts', 'submit']
 
 module.exports = (req, res) => {
 
