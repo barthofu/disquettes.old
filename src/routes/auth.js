@@ -32,7 +32,7 @@ router
     })
 
 
-.post('/login', passport.authenticate('local', { failureRedirect: 'login', authInfo: true, successReturnToOrRedirect: '/' }), function(req, res) {
+.post('/login', passport.authenticate('local', { failureRedirect: 'login', successReturnToOrRedirect: '/' }), function(req, res) {
     res.redirect('/');
 })
 
@@ -52,19 +52,14 @@ router
                 return next(err);
             }
             console.log('user registered!');
+
+
+
+            passport.authenticate('local', { failureRedirect: 'login', successReturnToOrRedirect: '/' }),
+                function(req, res) {
+                    res.redirect('/');
+                }
         })
-
-    console.log("go to login")
-    console.log(Account)
-
-
-    req.login(Account, function(err) {
-        if (err) {
-            console.log('error while user login!', err);
-            return next(err);
-        }
-        return res.redirect('/');
-    });
 
 
 })
