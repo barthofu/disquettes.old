@@ -38,31 +38,11 @@ router
 
 
 
-.post('/register', function(req, res, next) {
-    console.log('registering user');
-    Account.register(new Account({
-            username: req.body.username,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            mail: req.body.mail
-        }), req.body.password,
-        function(err) {
-            if (err) {
-                console.log('error while user register!', err);
-                return next(err);
-            }
-            console.log('user registered!');
-
-
-
-            passport.authenticate('local', { failureRedirect: 'login', successReturnToOrRedirect: '/' }),
-                function(req, res) {
-                    res.redirect('/');
-                }
-        })
-
-
+.post('/register', register, passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
+function(req, res) {
+  res.redirect('/');
 })
+
 
 
 .get('/private', connectEnsureLogin.ensureLoggedIn({ redirectTo: '/auth/login', setReturnTo: true }), (req, res) => {
@@ -73,5 +53,24 @@ router
 
 
 .get(notFound)
+
+function register (req, res, next) {
+
+    console.log('registering user');
+    Account.register(new Account({
+            username: req.body.username,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            mail: req.body.mail
+        }), req.body.password,
+        function(err) {
+            if (err) {
+                console.log('error while user register!', err);
+                res.redirect('/auth/register');
+            }
+            console.log('user registered!');
+            next()
+        })
+}
 
 module.exports = router;
