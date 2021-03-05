@@ -2,7 +2,12 @@ const createError = require('http-errors'),
     express = require('express'),
     path = require('path'),
     cookieParser = require('cookie-parser'),
-    logger = require('morgan')
+    logger = require('morgan'),
+    passport = require('passport'),
+    session = require('cookie-session'),
+    LocalStrategy = require('passport-local').Strategy,
+    Account = require('./models/User');
+
 
 var app = express();
 
@@ -17,19 +22,41 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
 
+
+
+// Set keys for session
+app.use(session({ keys: ['unebonnedisquette', 'labonnedisquette'] }));
+
+// Configure passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Set strategy for passport
+passport.use(new LocalStrategy(Account.authenticate()));
+
+//passport.use(auth.createStrategy());
+app.use(passport.session());
+
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+
+
+
 //Main routes
 
 const indexRoute = require('./routes/index')
-const apiRoute   = require('./routes/api')
-const webRoute   = require('./routes/web')
+const apiRoute = require('./routes/api')
+const webRoute = require('./routes/web')
 const adminRoute = require('./routes/admin')
+const authRoute = require('./routes/auth')
 
 app.use('/admin', adminRoute)
 app.use('/', indexRoute)
 app.use('/api', apiRoute)
 app.use('/web', webRoute)
-
-// catch 404 and forward to error handler
+app.use('/auth', authRoute)
+    // catch 404 and forward to error handler
 app.use((req, res, next) => {
     console.log(0)
     next(createError(404));
