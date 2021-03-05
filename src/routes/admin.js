@@ -23,7 +23,9 @@ router
             tags.push(element)
         });
         req.body.tags = tags
-        req.body.author = req.user.username
+        req?.user?.username ? req.body.author = req.user.username : req.body.author = "Annonymous"
+
+
         next()
 
     }, postDisquette)
