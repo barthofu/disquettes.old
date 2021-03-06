@@ -5,30 +5,58 @@ const getStats = require('../controllers/admin/stats')
 const checkUser = require('../controllers/admin/checkUser')
 const showDashboard = require('../controllers/admin/showDashboard')
 const postDisquette = require('../controllers/db/post')
+const authLoggedIn = require('../middleware/authLoggedIn')
+
+const postDisq = require('../services/db/post')
 let router = express.Router()
 
 router
     .get('/', (req, res) => res.redirect('/admin/overview'))
 
-.get('/overview', checkUser, getStats, showDashboard)
-    .get('/list', checkUser, showDashboard)
-    .get('/waiting', checkUser, showDashboard)
-    .get('/submit', checkUser, showDashboard)
-    .post('/submit', checkUser, (req, res, next) => {
+.get('/overview', authLoggedIn(), getStats, showDashboard)
+    .get('/list', authLoggedIn(), showDashboard)
+    .get('/waiting', authLoggedIn(), showDashboard)
+    .get('/submit', authLoggedIn(), showDashboard)
+    .post('/submit', authLoggedIn(), (req, res, next) => {
 
-        tags = []
-        req.body.tag.forEach(element => {
-
-            console.log(element)
-            tags.push(element)
-        });
-        req.body.tags = tags
-        req?.user?.username ? req.body.author = req.user.username : req.body.author = "Annonymous"
+        req.body.tags = req.body.tag
+        if(!req.body.author)
+        {
+            req?.user?.username ? req.body.author = req.user.username : req.body.author = "Annonymous"
+        }
 
 
-        next()
+            
+        try {
+            postDisq(req.body)
+            res.send("ok")
+        } catch (error) {
+            
+            console.log(error)
+            res.send(error)
+        }
+          
 
-    }, postDisquette)
+       
+            
+            //console.log(error)
+        
+
+
+       // next()
+    },postDisquette,
+    
+    (req, res, next )=>{
+    
+        
+    
+
+        if(res.locals.error){
+          //  console.log("Une erreur est survenue" + res.locals.error)
+        }else{
+        res.redirect('/admin/submit')
+        }
+    })
 
 .get(notFound)
 

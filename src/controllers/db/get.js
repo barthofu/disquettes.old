@@ -18,7 +18,7 @@ module.exports = (req, res) => {
 
             if (e) console.error(e)
 
-            if (age) results = results.filter(result => result.age === age)
+            if (age || age !=0) results = results.filter(result => result.age === age)
 
             results.forEach((result, i) => {
                 results[i].disquette = result.disquette.map(disquette => disquette.split("%NAME%").join(name))

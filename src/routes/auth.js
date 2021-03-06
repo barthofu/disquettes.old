@@ -6,10 +6,12 @@ const express = require('express'),
     notFound = require('../utils/404')
 
 
+
+
 let router = express.Router();
 
 router
-    .get((['/', '/login']), connectEnsureLogin.ensureLoggedOut('/'), (res, req, ) => {
+    .get((['/', '/login']), connectEnsureLogin.ensureLoggedOut('/'), (res, req) => {
 
 
         req.render("auth/layout", { page: "login" })
@@ -32,9 +34,25 @@ router
     })
 
 
-.post('/login', passport.authenticate('local', { failureRedirect: 'login', successReturnToOrRedirect: '/' }), function(req, res) {
-    res.redirect('/');
-})
+.post('/login', function(req, res, next) {
+
+    passport.authenticate('local', function(err, user, info) {
+      if (err) {
+        return next(err);
+      }
+      if (! user) {
+         return res.render("auth/layout", { page: "login", message: { name: "loginError"} })
+      }
+
+      req.login(user, loginErr => {
+        if (loginErr) {
+            return next(loginErr);
+        }
+        return res.redirect(req.session.returnTo ||'/');
+      });      
+
+    })(req, res, next);
+  })
 
 
 

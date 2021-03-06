@@ -31,13 +31,15 @@
  * @return {Function}
  * @api public
  */
-module.exports = function ensureLoggedIn(options) {
+
+
+module.exports = function(options) {
     if (typeof options == 'string') {
         options = { redirectTo: options }
     }
     options = options || {};
 
-    var url = options.redirectTo || '/login';
+    var url = options.redirectTo || '/auth/login';
     var setReturnTo = (options.setReturnTo === undefined) ? true : options.setReturnTo;
 
     return function(req, res, next) {

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Disquette = mongoose.model('waiting', require("../../models/Disquette"), 'waiting')
 
-module.exports = (req, res) => {
+module.exports = (req, res, next) => {
 
     let args = req.body
 
@@ -13,11 +13,13 @@ module.exports = (req, res) => {
             if (e) res.send(insertError(e))
             else {
                 console.log("insertion successful")
-                res.send("insertion successful")
+               // res.send("insertion successful")
+                next(disquette)
             }
         })
-    } catch (e) {
-        res.send(insertError(e))
+    } catch (err) {
+      //  res.send(insertError(e))
+        next(err)
     }
 
 }

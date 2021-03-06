@@ -1,27 +1,27 @@
-<div>
+<div >
     <h1>
         Inscription
     </h1>
     <form name="regitser" method="POST" action="">
         <table>
             <tr>
-                <td>Tags: </td>
-                <td>
-                    <select class="tag" multiple="multiple" name="tag">
-                <option selected="selected">orange</option>
-                <option>white</option>
-                <option selected="selected">purple</option>
-              </select>
-                </td>
-            </tr>
-            <tr>
                 <td>Disquette</td>
                 <td><input type="text" name="disquette"></td>
             </tr>
             <tr>
+                <td>Tags: </td>
+                <td>
+                    <select class="tag" multiple="multiple" name="tag" style="width: 100%;">
+                <option selected="selected">sexe</option>
+                <option >film</option>
+                <option >manga</option>
+              </select>
+                </td>
+            </tr>
+            <tr>
                 <td>Langue: </td>
                 <td>
-                    <select class="lang" name="lang">
+                    <select class="lang" name="lang" style="width: 100%;">
                 <option selected="selected" value="FR">Francais</option>
                 <option value="EN">Anglais</option>
               </select>
@@ -29,16 +29,10 @@
             </tr>
             <tr>
                 <td>Autheur</td>
-                <td><input type="text" name="username" placeholder="Laisser vide pour t'assigner en autheur!"></td>
+                <td><input type="text" name="author" placeholder="Laisser vide pour t'assigner en autheur!"></td>
             </tr>
             <tr>
-
-                <td>Mot de passe</td>
-                <td><input type="password" name="password"></td>
-            </tr>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="submit" value="Save"></td>
+                <td colspan="2"><input type="submit" value="Submit"></td>
             </tr>
         </table>
     </form>

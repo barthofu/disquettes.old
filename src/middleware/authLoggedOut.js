@@ -26,7 +26,7 @@
  * @return {Function}
  * @api public
  */
-module.exports = function ensureLoggedOut(options) {
+module.exports = function(options) {
   if (typeof options == 'string') {
     options = { redirectTo: options }
   }
