@@ -7,7 +7,6 @@
         "dev": "nodemon index"
     },
     "dependencies": {
-        "connect-ensure-login": "^0.1.1",
         "cookie-parser": "~1.4.4",
         "cookie-session": "^1.4.0",
         "debug": "~2.6.9",

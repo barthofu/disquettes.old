@@ -1,10 +1,7 @@
 const { json }              = require('express'),
       express               = require('express'),
-      connectEnsureLogin    = require('connect-ensure-login'),
       passport              = require('passport'),
-
       notFound              = require('../utils/404'),
-
       authLoggedOut         = require('../middleware/authLoggedOut'),
       register              = require('../middleware/register'),
       
@@ -23,7 +20,6 @@ router
     .get(('/register'), (res, req) => req.render("auth/layout", { page: "register" }))
     .post('/register', authLoggedOut('/'), register, passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), (req, res) => res.redirect('/'))
 
-    .get('/private', connectEnsureLogin.ensureLoggedIn({ redirectTo: '/auth/login', setReturnTo: true }), (req, res) => res.json(req.user))
 
     .get(notFound)
 
