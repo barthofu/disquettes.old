@@ -1,4 +1,4 @@
-const { waitingDisquette } = require('../../models/Disquette')
+const { validateDisquette } = require('../../models/Disquette')
 
 const girlNames = ["Caroline", "Béatrice", "Chloé", "Diana", "Margot", "Carla", "Mathilde", "Sarah", "Claire", "Joséphine", "Auriane", "Léna", "Maria"]
 
@@ -18,7 +18,7 @@ module.exports = (req, res) => {
     if (age !== 0) options.age = age
     if (genre !== 0) options.genre = genre
 
-    return waitingDisquette.findBy(options).then(results => {
+    return validateDisquette.findBy(options).then(results => {
 
         if (results.length === 0) res.json({ error: "No results", details: null })
 

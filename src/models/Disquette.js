@@ -45,12 +45,12 @@ disquetteSchema.statics.post = async function(args) {
 
     let { disquette, tags, age = 0 } = args
     
-    if (!args.disquette) throw "missing disquette"
-    if (!args.tags) throw "missing tags"
+    if (!disquette) throw "missing disquette field"
+    if (!tags) throw "missing tags field"
 
-    args.tags = [].concat(args.tags).map(e => e.toLowerCase())
+    tags = [].concat(tags).map(e => e.toLowerCase())
    
-    if(args.age < 0 ||args.age > 3) throw "bad age"
+    if(age < 0 ||age > 3) throw "bad age"
     
     return new this(args).save()
 }

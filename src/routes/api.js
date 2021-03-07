@@ -3,17 +3,20 @@ const express                                   = require('express'),
 
       authLoggedIn                              = require('../middleware/auth/authLoggedIn'),
 
-      postDisquette                             = require('../controllers/api/post'),
-      getDisquette                              = require('../controllers/api/get'),
+      post                                      = require('../controllers/api/post'),
+      get                                       = require('../controllers/api/get'),
+      validate                                  = require('../controllers/api/validate'),
 
       { validateDisquette, waitingDisquette }   = require('../models/Disquette')
 
 let router = express.Router();
 
 router
-    .post('/post', authLoggedIn(), postDisquette)
+    .post('/post', authLoggedIn(), post)
 
-    .get('/get', getDisquette)
+    .get('/get', get)
+
+    .post('/validate', validate)
 
     .get(notFound)
 
