@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
 
-const waitingDisquette = mongoose.model('waiting', require("../../models/Disquette"), 'waiting')
-const validateDisquette = mongoose.model('validate', require("../../models/Disquette"), 'validate')
-const visites = mongoose.model('visites', require("../../models/Visite"), 'visites')
-const apiRequests = mongoose.model('apiRequests', require("../../models/Visite"), 'apiRequests')
+const { waitingDisquette, validateDisquette } = require("../models/Disquette")
+const visites = mongoose.model('visites', require("../models/Visite"), 'visites')
+const apiRequests = mongoose.model('apiRequests', require("../models/Visite"), 'apiRequests')
 
 module.exports = async (req, res, next) => {
 
@@ -27,17 +26,13 @@ module.exports = async (req, res, next) => {
 
 async function getTotalValidate () {
 
-    let results = await validateDisquette.find().exec()
-
-    return results.length
+    return await validateDisquette.find().exec()
 
 }
 
 async function getTotalWaiting () {
 
-    let results = await waitingDisquette.find().exec()
-
-    return results.length
+    return await waitingDisquette.find().exec()
 
 }
 

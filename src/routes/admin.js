@@ -1,63 +1,29 @@
-const express = require('express');
-const notFound = require('../utils/404')
+const express                                   = require('express'),
+      notFound                                  = require('../utils/404'),
 
-const getStats = require('../controllers/admin/stats')
-const checkUser = require('../controllers/admin/checkUser')
-const showDashboard = require('../controllers/admin/showDashboard')
-const postDisquette = require('../controllers/db/post')
-const authLoggedIn = require('../middleware/authLoggedIn')
+      getStats                                  = require('../middleware/getStats'),
+      authLoggedIn                              = require('../middleware/authLoggedIn'),
 
-const postDisq = require('../services/db/post')
+      showDashboard                             = require('../controllers/admin/showDashboard'),
+      showList                                  = require('../controllers/admin/showList'),
+      submitDisquette                          = require('../controllers/submit'),
+
+      { validateDisquette, waitingDisquette }   = require('../models/Disquette')
+
 let router = express.Router()
 
 router
     .get('/', (req, res) => res.redirect('/admin/overview'))
 
-.get('/overview', authLoggedIn(), getStats, showDashboard)
-    .get('/list', authLoggedIn(), showDashboard)
-    .get('/waiting', authLoggedIn(), showDashboard)
-    .get('/submit', authLoggedIn(), showDashboard)
-    .post('/submit', authLoggedIn(), (req, res, next) => {
+    .get('/overview', authLoggedIn(), getStats, (req, res) => { res.render("admin/layout", {page: "overview"})})
+    .get('/list', authLoggedIn(), showList)
+    .get('/waiting', authLoggedIn(), (req, res) => { res.render("admin/layout", {page: "waiting"})})
 
-        req.body.tags = req.body.tag
-        if(!req.body.author)
-        {
-            req?.user?.username ? req.body.author = req.user.username : req.body.author = "Annonymous"
-        }
+    .get('/submit', authLoggedIn(), (req, res) => { res.render("admin/layout", {page: "submit"})})
+    .post('/submit', authLoggedIn(), submitDisquette)
 
+    .get('/disquette/:id', authLoggedIn(), (req, res) =>{})
 
-            
-        try {
-            postDisq(req.body)
-            res.send("ok")
-        } catch (error) {
-            
-            console.log(error)
-            res.send(error)
-        }
-          
+    .get(notFound)
 
-       
-            
-            //console.log(error)
-        
-
-
-       // next()
-    },postDisquette,
-    
-    (req, res, next )=>{
-    
-        
-    
-
-        if(res.locals.error){
-          //  console.log("Une erreur est survenue" + res.locals.error)
-        }else{
-        res.redirect('/admin/submit')
-        }
-    })
-
-.get(notFound)
-
-module.exports = router;
+module.exports = router

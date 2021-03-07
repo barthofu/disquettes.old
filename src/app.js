@@ -1,15 +1,19 @@
-const createError = require('http-errors'),
-    express = require('express'),
-    path = require('path'),
-    cookieParser = require('cookie-parser'),
-    logger = require('morgan'),
-    passport = require('passport'),
-    session = require('cookie-session'),
-    LocalStrategy = require('passport-local').Strategy,
-    Account = require('./models/User');
+const createError   = require('http-errors'),
+      express       = require('express'),
+      path          = require('path'),
+      cookieParser  = require('cookie-parser'),
+      logger        = require('morgan'),
+      passport      = require('passport'),
+      session       = require('cookie-session'),
+      LocalStrategy = require('passport-local').Strategy,
+      Account       = require('./models/User'),
+      flash         = require('./middleware/flash');
 
 
 var app = express();
+
+app.locals.title = "Disquette"
+app.locals.version = "0.01"
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
@@ -20,8 +24,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
-
-
 
 
 // Set keys for session
@@ -41,7 +43,7 @@ passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 
-
+app.use(flash)
 
 //Main routes
 

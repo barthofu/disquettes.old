@@ -41,8 +41,8 @@
     </div>
 </a>
 
-
-    <% if (user.roles.admin) { %>
+    <%
+    if (locals.user.roles.admin) { %>
         <div>ADMIN: EN ATTENTE</div>
         <div>ADMIN: COMPTES</div>
         <% } %>

@@ -1,0 +1,21 @@
+
+<% if(locals.flash){ %>
+
+
+
+    <% if(locals.flash.error){ %>
+<div>
+    ERROR <%= locals.flash.error %>
+</div>
+<% } %>
+
+<% if(locals.flash.succes){ %>
+    <div>
+        SUCCES <%= locals.flash.succes %>
+    </div>
+    <% } %>
+    
+
+
+
+<% } %>
