@@ -43,10 +43,11 @@ disquetteSchema.statics.findAll = function (pageOptions = {page: 0, limit: 0}) {
 
 disquetteSchema.statics.post = async function(args) {
 
-    let { disquette, tags, age = 0 } = args
+    let { disquette, tags, age = 0, author } = args
     
-    if (!disquette) throw "missing disquette field"
-    if (!tags) throw "missing tags field"
+    if (!args.disquette) throw "missing disquette"
+    if (!args.tags) throw "missing tags"
+    if (args.author == "") args.author = undefined 
 
     tags = [].concat(tags).map(e => e.toLowerCase())
    

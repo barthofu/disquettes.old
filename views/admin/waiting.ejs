@@ -1,0 +1,37 @@
+<div>
+
+
+
+
+    <table>
+   <tr>
+      <th>Disquette</th>
+      <th>Autheur</th>
+      <th>genre</th>
+      <th>age</th>
+      <th>lang</th>
+      <th>tags</th>
+      <th>votes</th>
+      <th>stats</th>
+    <th>submittedAt</th>
+   </tr>
+
+   <% for (var i = 0; i < disquette.length;  i++) { %>
+    <tr>
+
+            <td><%= disquette[i].disquette %></td>
+            <td><%= disquette[i].author %></td>
+            <td><%= disquette[i].genre %></td>
+            <td><%= disquette[i].age %></td>
+            <td><%= disquette[i].lang %></td>
+            <td><%= disquette[i].tags %></td>
+            <td><%= disquette[i].votes %></td>
+            <td><%= disquette[i].stats %></td>
+            <td><%= disquette[i].submittedAt %></td>
+    </tr>    
+   <% } %>
+</table>
+
+
+
+</div>
