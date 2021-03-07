@@ -7,6 +7,7 @@ const express                                   = require('express'),
       showDashboard                             = require('../controllers/admin/showDashboard'),
       showList                                  = require('../controllers/admin/showList'),
       submitDisquette                          = require('../controllers/submit'),
+      showWaiting                               = require('../controllers/admin/showWaiting'),
 
       { validateDisquette, waitingDisquette }   = require('../models/Disquette')
 
@@ -17,7 +18,7 @@ router
 
     .get('/overview', authLoggedIn(), getStats, (req, res) => { res.render("admin/layout", {page: "overview"})})
     .get('/list', authLoggedIn(), showList)
-    .get('/waiting', authLoggedIn(), (req, res) => { res.render("admin/layout", {page: "waiting"})})
+    .get('/waiting', authLoggedIn(), showWaiting)
 
     .get('/submit', authLoggedIn(), (req, res) => { res.render("admin/layout", {page: "submit"})})
     .post('/submit', authLoggedIn(), submitDisquette)

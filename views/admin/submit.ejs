@@ -19,6 +19,27 @@
                 </td>
             </tr>
             <tr>
+                <td>A destination: </td>
+                <td>
+                    <select class="genre" name="genre" style="width: 100%;">
+                <option value="0">Tout public</option>
+                <option selected="selected" value="1">Pour une femme</option>
+                <option value="2">Pour un homme</option>
+              </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Age: </td>
+                <td>
+                    <select class="age" name="age" style="width: 100%;">
+                <option value="0">Tout public</option>
+                <option selected="selected" value="1">18-25ans</option>
+                <option value="2">16-35ans</option>
+                <option value="3">36ans et +</option>
+              </select>
+                </td>
+            </tr>
+            <tr>
                 <td>Langue: </td>
                 <td>
                     <select class="lang" name="lang" style="width: 100%;">
@@ -27,6 +48,7 @@
               </select>
                 </td>
             </tr>
+            
             <tr>
                 <td>Autheur</td>
                 <td><input type="text" name="author" placeholder="Laisser vide pour t'assigner en autheur!"></td>
@@ -44,6 +66,15 @@
         tokenSeparators: [',', ' ']
     })
     $(".lang").select2({
+        minimumResultsForSearch: Infinity,
+        selectOnClose: true
+    })
+
+    $(".age").select2({
+        minimumResultsForSearch: Infinity,
+        selectOnClose: true
+    })
+    $(".genre").select2({
         minimumResultsForSearch: Infinity,
         selectOnClose: true
     })
