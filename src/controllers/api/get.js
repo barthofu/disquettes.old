@@ -28,12 +28,19 @@ module.exports = (req, res) => {
 
             result.disquette = result.disquette.map(disquette => disquette.split("%NAME%").join(name))
     
-            res.json(result)
+            res.json({
+                status: 'success',
+                result
+            })
         }
 
     }).catch(err => {
 
-        res.json({ error: err.message, details: err })
+        res.json({ 
+            status: 'error',
+            message: err.message, 
+            details: err 
+        })
 
     })
 

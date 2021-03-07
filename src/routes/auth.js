@@ -2,13 +2,12 @@ const { json }              = require('express'),
       express               = require('express'),
       passport              = require('passport'),
       notFound              = require('../utils/404'),
-      authLoggedOut         = require('../middleware/authLoggedOut'),
-      register              = require('../middleware/register'),
+      authLoggedOut         = require('../middleware/auth/authLoggedOut'),
+      register              = require('../middleware/auth/register'),
       
       login                 = require('../controllers/auth/login')
 
-
-let router = express.Router();
+let router = express.Router()
 
 router
     .get((['/', '/login']), authLoggedOut('/'), (res, req) => req.render("auth/layout", { page: "login" }))
@@ -23,4 +22,4 @@ router
 
     .get(notFound)
 
-module.exports = router;
+module.exports = router

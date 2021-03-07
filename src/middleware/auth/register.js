@@ -1,4 +1,4 @@
-const Account = require('../models/User')
+const Account = require('../../models/User')
 
 module.exports = (req, res, next) => {
 

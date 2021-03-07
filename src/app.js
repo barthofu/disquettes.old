@@ -7,7 +7,7 @@ const createError   = require('http-errors'),
       session       = require('cookie-session'),
       LocalStrategy = require('passport-local').Strategy,
       Account       = require('./models/User'),
-      flash         = require('./middleware/flash');
+      flash         = require('./middleware/error/flash');
 
 
 var app = express();

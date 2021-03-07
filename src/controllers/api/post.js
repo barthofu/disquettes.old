@@ -7,14 +7,19 @@ module.exports = (req, res) => {
 
     waitingDisquette.post(req.body).then(result => {
 
-        req.flash('succes', "Disquette ajoutée à la base de donées", result)
-        res.redirect('./submit')
+        res.json({
+            status: "success",
+            message: "Disquette added to database",
+            data: result
+        })
 
     }).catch(err => {
 
-        console.log(err)
-        req.flash('error', "Erreur pendant la creation", err)
-        res.redirect('./submit')
+        res.json({
+            status: "error",
+            message: "Error on insertion",
+            details: err
+        })
 
     })
 

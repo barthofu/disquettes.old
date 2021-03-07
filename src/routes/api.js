@@ -1,10 +1,10 @@
 const express                                   = require('express'),
       notFound                                  = require('../utils/404'),
 
-      authLoggedIn                              = require('../middleware/authLoggedIn'),
+      authLoggedIn                              = require('../middleware/auth/authLoggedIn'),
 
-      postDisquette                             = require('../controllers/data/post'),
-      getDisquette                              = require('../controllers/data/get'),
+      postDisquette                             = require('../controllers/api/post'),
+      getDisquette                              = require('../controllers/api/get'),
 
       { validateDisquette, waitingDisquette }   = require('../models/Disquette')
 

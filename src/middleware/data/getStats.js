@@ -1,8 +1,8 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose'),
 
-const { waitingDisquette, validateDisquette } = require("../models/Disquette")
-const visites = mongoose.model('visites', require("../models/Visite"), 'visites')
-const apiRequests = mongoose.model('apiRequests', require("../models/Visite"), 'apiRequests')
+      { waitingDisquette, validateDisquette } = require("../../models/Disquette"),
+      visites                                 = mongoose.model('visites', require("../../models/Visite"), 'visites'),
+      apiRequests                             = mongoose.model('apiRequests', require("../../models/Visite"), 'apiRequests')
 
 module.exports = async (req, res, next) => {
 

@@ -1,12 +1,12 @@
 const express                                   = require('express'),
       notFound                                  = require('../utils/404'),
 
-      getStats                                  = require('../middleware/getStats'),
-      authLoggedIn                              = require('../middleware/authLoggedIn'),
+      getStats                                  = require('../middleware/data/getStats'),
+      authLoggedIn                              = require('../middleware/auth/authLoggedIn'),
 
       showDashboard                             = require('../controllers/admin/showDashboard'),
       showList                                  = require('../controllers/admin/showList'),
-      submitDisquette                          = require('../controllers/submit'),
+      submitDisquette                          = require('../controllers/submit/submit'),
 
       { validateDisquette, waitingDisquette }   = require('../models/Disquette')
 
