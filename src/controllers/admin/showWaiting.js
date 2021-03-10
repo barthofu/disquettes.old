@@ -11,7 +11,7 @@ module.exports = (req, res) => {
 
     
         console.log(results)
-        res.render("admin/layout", {page: "waiting", disquette: results })
+        res.render("admin/layout", {page: "waiting", disquette: results, pageOptions: pageOptions})
 
     }).catch(err => {
 

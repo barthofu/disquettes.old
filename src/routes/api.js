@@ -6,6 +6,7 @@ const express                                   = require('express'),
       post                                      = require('../controllers/api/post'),
       get                                       = require('../controllers/api/get'),
       validate                                  = require('../controllers/api/validate'),
+      deleteDisquette                           = require('../controllers/api/delete'),
 
       { validateDisquette, waitingDisquette }   = require('../models/Disquette')
 
@@ -18,22 +19,23 @@ router
 
     .post('/validate', validate)
 
+    .post('/delete', deleteDisquette)
 
-    .get('/disquette/:id',(req, res) =>{
+    // .get('/disquette/:id',(req, res) =>{
        
-        console.log(req.params.id)
-        validateDisquette.findById(req.params.id).then(result => {
+    //     console.log(req.params.id)
+    //     validateDisquette.findById(req.params.id).then(result => {
 
-            res.json(result)
-        }).catch(err =>{
+    //         res.json(result)
+    //     }).catch(err =>{
 
-            res.json({
-                status: 'error',
-                message: `Disquette with id ${req.params.id} not found`,
-            })
-        })
+    //         res.json({
+    //             status: 'error',
+    //             message: `Disquette with id ${req.params.id} not found`,
+    //         })
+    //     })
     
-    })
+    // })
 
 
     .get(notFound)

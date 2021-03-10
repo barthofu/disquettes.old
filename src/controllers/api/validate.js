@@ -6,15 +6,14 @@ const mongoose                                  = require('mongoose'),
 
 module.exports = (req, res) => {
 
-    console.log(req.body._id)
 
-    waitingDisquette.findByIdAndDelete(req.body._id).then(result => {
+    waitingDisquette.findByIdAndDelete(req.body.id).then(result => {
 
-        result = result.toJSON()
+        result = result?.toJSON()
 
         if (!result) return res.json({
             status: 'error',
-            message: `Disquette with id ${req.body._id} not found`,
+            message: `Disquette with id ${req.body.id} not found`,
         })
 
         const newValidated = new validateDisquette(result)

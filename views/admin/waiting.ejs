@@ -3,7 +3,7 @@
 
 
 
-    <table>
+    <table id="tableau">
    <tr>
       <th>Disquette</th>
       <th>Autheur</th>
@@ -17,7 +17,7 @@
    </tr>
 
    <% for (var i = 0; i < disquette.length;  i++) { %>
-    <tr>
+    <tr id="<%= disquette[i]._id %>">
 
             <td><%= disquette[i].disquette %></td>
             <td><%= disquette[i].author %></td>
@@ -28,10 +28,68 @@
             <td><%= disquette[i].votes %></td>
             <td><%= disquette[i].stats %></td>
             <td><%= disquette[i].submittedAt %></td>
+            <td><a onclick="validate('<%= disquette[i]._id %>','<%=i %>' )" >Valider</a></td>
+            <td><a onclick="remove('<%= disquette[i]._id %>','<%=i %>' )" >Supprimer</a></td>
+          
     </tr>    
    <% } %>
 </table>
 
+PAGE: <%= pageOptions.page %>
+<br>
+<a href="?page=<%=pageOptions.page -1 %> ">PAGE RETOUR</a>
+<br>
+<a href="?page=<%=pageOptions.page +1 %> ">PAGE SUIVATE</a>
+
 
 
 </div>
+
+<script>
+function validate(disquette, row){
+        console.log(disquette)
+ 
+        fetch(new Request('/api/validate', { method: 'post',    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+     body: JSON.stringify( { id: disquette } )}))
+        .then(data => data.json())
+        .then(data => {
+
+                console.log(data)
+                if(data.status === "error"){
+                        console.log("error")
+                }else if (data.status === "success"){
+
+                        var row = document.getElementById(disquette);
+                        document.getElementById("tableau").deleteRow(row.rowIndex);
+                }
+        })
+}
+
+function remove(disquette, row){
+        console.log(disquette)
+ 
+        fetch(new Request('/api/delete', { method: 'post',    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+     body: JSON.stringify( { id: disquette } )}))
+        .then(data => data.json())
+        .then(data => {
+
+                console.log(data)
+                if(data.status === "error"){
+                        console.log("error")
+                }else if (data.status === "success"){
+
+                        var row = document.getElementById(disquette);
+                        document.getElementById("tableau").deleteRow(row.rowIndex);
+                }
+        })
+}
+
+
+
+</script>
