@@ -6,7 +6,7 @@ module.exports = (req, res) => {
 
     req.query.name = girlNames[Math.floor(Math.random() * girlNames.length)]
 
-    let { tag, age = 0, genre = 0, nb = 1, name = "?????", lang = "FR" } = req.query
+    let { tag = 'all', age = 0, genre = 0, nb = 1, name = "?????", lang = "FR" } = req.query
 
     age = parseInt(age)
     genre = parseInt(genre)

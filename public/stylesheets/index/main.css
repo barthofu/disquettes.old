@@ -8,14 +8,14 @@
     box-sizing: border-box;
     list-style: none;
 
-    /border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 body {
 
     background: rgb(228, 228, 228);
 
-    height: 100vh;
+    height: 300vh;
 
     display: flex;
     flex-direction: column;
@@ -23,8 +23,10 @@ body {
 
     font-family: "Poppins";
 
+    overflow: hidden;
+
 }
 
 html {
     scroll-behavior: smooth;
-  }
+}

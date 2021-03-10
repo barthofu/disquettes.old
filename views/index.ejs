@@ -37,7 +37,7 @@
 
 
 
-    <section class="hero-text">
+    <section class="hero-text" id="top">
         <div class="line"></div>
         <div class="text">Toi aussi, trouve une disquette pour <br>impressionner ton/ta crush!</div>
     </section>
@@ -67,78 +67,89 @@
     </div>
 
 
-    <main id="main">
+    <div class="main-container">
 
+        <a class="up-button" href="#top">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+        </a>
 
-        <section class="disquette">
-            <p class="disquette-text"></p>
-        </section>
+        <main id="main">
+
+            <section class="disquette">
+                <p class="disquette-text"></p>
+            </section>
     
-        <section class="form">
-            <form>
-                <button class="button" type="button" onclick="getData()">
-                    <div class="button__content">
-                      <p class="button__text">Générer</p>
-                    </div>
-                </button>
-                  
-                <details>
-                    <summary class="advanced-text">advanced</summary>
+            <button class="button" type="button" onclick="getData()">
+                <div class="button__content">
+                  <p class="button__text">Générer</p>
+                </div>
+            </button>
+        
+            <section class="form">
+                <form>
     
-                    <section class="advanced">
-    
-                        <div class="separator"></div>
-    
-                        <div class="tag">
-                            <label class="key">Tag</label> 
-                            <select class="value">
-                                <option value="anime">Anime</option>
-                                <option value="musique">Musique</option>
-                                <option value="film">Film</option>
-                            </select>
-                        </div>
-    
-                        <div class="age">
-                            <label class="key">Age</label> 
-                            <select class="value">
-                                <option value="0">All</option>
-                                <option value="1">18 - 25</option>
-                                <option value="2">26 - 35</option>
-                                <option value="3">36+</option>
-                            </select>
-                        </div>
-    
-                        <div class="gender radio">
-                            <label class="key">Gender</label> 
-                            <div class="value">
-                                <div>
-                                    <input type="radio" id="both" name="gender" value="0"
-                                            checked>
-                                    <label for="both">Both</label>
-                                </div>
-                                
-                                <div>
-                                    <input type="radio" id="female" name="gender" value="1">
-                                    <label for="female">Female</label>
-                                </div>
-                                
-                                <div>
-                                    <input type="radio" id="male" name="gender" value="2">
-                                    <label for="male">Male</label>
-                                </div>
+                      
+                    <details>
+                        <summary class="advanced-text">advanced</summary>
+        
+                        <section class="advanced">
+        
+                            <div class="separator"></div>
+        
+                            <div class="tag">
+                                <label class="key">Tag</label> 
+                                <select class="value">
+                                    <option value="all">All</option>
+                                    <option value="anime">Anime</option>
+                                    <option value="musique">Musique</option>
+                                    <option value="film">Film</option>
+                                </select>
                             </div>
-            
-                        </div>
-                    </section>
-                </details>
-               
-                
     
+                            <div class="age">
+                                <label class="key">Age</label> 
+                                <select class="value">
+                                    <option value="0">All</option>
+                                    <option value="1">18 - 25</option>
+                                    <option value="2">26 - 35</option>
+                                    <option value="3">36+</option>
+                                </select>
+                            </div>
+    
+                            <div class="gender radio">
+                                <label class="key">Gender</label> 
+                                <div class="value">
+                                    <div>
+                                        <input type="radio" id="both" name="gender" value="0"
+                                                checked>
+                                        <label for="both">Both</label>
+                                    </div>
+                                    
+                                    <div>
+                                        <input type="radio" id="female" name="gender" value="1">
+                                        <label for="female">Female</label>
+                                    </div>
+                                    
+                                    <div>
+                                        <input type="radio" id="male" name="gender" value="2">
+                                        <label for="male">Male</label>
+                                    </div>
+                                </div>
                 
-            </form>
-        </section>
-    </main>
+                            </div>
+                        </section>
+                    </details>
+                    
+                </form>
+            </section>
+        </main>
+    
 
+    </div>
+
+   
     
 
     

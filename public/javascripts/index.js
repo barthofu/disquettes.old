@@ -1,12 +1,14 @@
+let typed
+
 const optionsDisquette = {
-    strings: ['T tro bo lazare'],
+    strings: [''],
     typeSpeed: 25
-  }
+}
   
 
 document.addEventListener("DOMContentLoaded", function(event) {
     
-  new Typed('.disquette-text', optionsDisquette);
+  typed = new Typed('.disquette-text', optionsDisquette);
 
 });
 
@@ -30,7 +32,18 @@ function getData() {
   let obj = {
     tag: $('.tag .value').find(':selected').val(),
     age: $('.age .value').find(':selected').val(),
-    gender: $('form').serializeArray()[0].value
+    genre: $('form').serializeArray()[0].value
   }
+
+  fetch(new Request(`/api/get?${Object.keys(obj).map(key => `${key}=${obj[key]}`).join('&')}`))
+    .then(res => res.json()).then(disquette => {
+
+      typed.destroy()
+
+      typed = new Typed('.disquette-text', {
+        strings: disquette.result.disquette,
+        typeSpeed: 25
+      });
+    })
 
 }
