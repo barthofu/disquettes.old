@@ -6,7 +6,7 @@ const express                                   = require('express'),
 
       showDashboard                             = require('../controllers/admin/showDashboard'),
       showList                                  = require('../controllers/admin/showList'),
-      submitDisquette                          = require('../controllers/submit/submit'),
+      submitDisquette                           = require('../controllers/submit/submit'),
       showWaiting                               = require('../controllers/admin/showWaiting'),
 
       { validateDisquette, waitingDisquette }   = require('../models/Disquette')
