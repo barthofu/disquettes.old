@@ -1,11 +1,147 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disquettes</title>
+
+    <link rel="stylesheet" href="/stylesheets/index/main.css">
+    <link rel="stylesheet" href="/stylesheets/index/header.css">
+    <link rel="stylesheet" href="/stylesheets/index/hero.css">
+    <link rel="stylesheet" href="/stylesheets/index/body.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="/javascripts/index.js"></script>
+</head>
+<body>
+
+    <header>
+        <img class="logo" src="https://via.placeholder.com/300x150" alt="">
+        <div>
+            <svg class="submit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <div class="profile"><img src="https://cdn.discordapp.com/avatars/260908777446965248/01bf7f67c8d8af70cb30487338098b09.png?size=2048" alt=""></div>
+        </div>
+    </header>
+
+    <a class="down-button" href="#main">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </a>
+
+
+
+    <section class="hero-text">
+        <div class="line"></div>
+        <div class="text">Toi aussi, trouve une disquette pour <br>impressionner ton/ta crush!</div>
+    </section>
+
+    <div class="hero-images">
+        <ul>
+            <li>
+                <img src="https://mangashop.barthofu.me/view/assets/tomes/shingeki_no_kyojin/30.png" alt="cover tome 30 shingeki no koyjin">
+            </li>
+            <li id="selected">
+               <img src="https://mangashop.barthofu.me/view/assets/tomes/tokyo_ghoul_re/16_homepage.png" alt="cover tome 16 tokyo ghoul:re">
+            </li>
+            <li>
+                <img src="https://mangashop.barthofu.me/view/assets/tomes/one_piece/96.png" alt="cover tome 96 one piece">
+            </li>
+        </ul>
+    </div>
+
+    <div class="hero-background">
+        <div class="diagonal-hero-bg">
+            <div class="stars">
+                <div class="small"></div>
+                <div class="medium"></div>
+                <div class="big"></div>
+            </div>
+         </div>
+    </div>
+
+
+    <main id="main">
+
+
+        <section class="disquette">
+            <p class="disquette-text"></p>
+        </section>
+    
+        <section class="form">
+            <form>
+                <button class="button" type="button" onclick="getData()">
+                    <div class="button__content">
+                      <p class="button__text">Générer</p>
+                    </div>
+                </button>
+                  
+                <details>
+                    <summary class="advanced-text">advanced</summary>
+    
+                    <section class="advanced">
+    
+                        <div class="separator"></div>
+    
+                        <div class="tag">
+                            <label class="key">Tag</label> 
+                            <select class="value">
+                                <option value="anime">Anime</option>
+                                <option value="musique">Musique</option>
+                                <option value="film">Film</option>
+                            </select>
+                        </div>
+    
+                        <div class="age">
+                            <label class="key">Age</label> 
+                            <select class="value">
+                                <option value="0">All</option>
+                                <option value="1">18 - 25</option>
+                                <option value="2">26 - 35</option>
+                                <option value="3">36+</option>
+                            </select>
+                        </div>
+    
+                        <div class="gender radio">
+                            <label class="key">Gender</label> 
+                            <div class="value">
+                                <div>
+                                    <input type="radio" id="both" name="gender" value="0"
+                                            checked>
+                                    <label for="both">Both</label>
+                                </div>
+                                
+                                <div>
+                                    <input type="radio" id="female" name="gender" value="1">
+                                    <label for="female">Female</label>
+                                </div>
+                                
+                                <div>
+                                    <input type="radio" id="male" name="gender" value="2">
+                                    <label for="male">Male</label>
+                                </div>
+                            </div>
+            
+                        </div>
+                    </section>
+                </details>
+               
+                
+    
+                
+            </form>
+        </section>
+    </main>
+
+    
+
+    
+
+</body>
 </html>

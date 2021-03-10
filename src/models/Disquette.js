@@ -45,9 +45,9 @@ disquetteSchema.statics.post = async function(args) {
 
     let { disquette, tags, age = 0, author } = args
     
-    if (!args.disquette) throw "missing disquette"
-    if (!args.tags) throw "missing tags"
-    if (args.author == "") args.author = undefined 
+    if (!disquette) throw "missing disquette"
+    if (!tags) throw "missing tags"
+    if (author == "") args.author = undefined 
 
     tags = [].concat(tags).map(e => e.toLowerCase())
    

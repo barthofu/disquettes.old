@@ -1,4 +1,4 @@
-const { waitingDisquette } = require('../../models/Disquette')
+const { validateDisquette } = require('../../models/Disquette')
 
 module.exports = (req, res) => {
 
@@ -9,9 +9,7 @@ module.exports = (req, res) => {
     if (query) options.disquette = { $in : [ query ] }
     if (tag) options.tags = tag
 
-    console.log(options)
-
-    waitingDisquette.findBy(options, { page: parseInt(page), limit: parseInt(limit) }).then(results => {
+    validateDisquette.findBy(options, { page: parseInt(page), limit: parseInt(limit) }).then(results => {
         
         res.json(results)
 

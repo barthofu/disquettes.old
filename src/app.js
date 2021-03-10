@@ -60,7 +60,6 @@ app.use('/web', webRoute)
 app.use('/auth', authRoute)
     // catch 404 and forward to error handler
 app.use((req, res, next) => {
-    console.log(0)
     next(createError(404));
 });
 
