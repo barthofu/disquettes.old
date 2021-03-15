@@ -1,6 +1,42 @@
-<div>
-    salut
-    <%=   %>
-        <%=' locals.title'%>
+<div class="overview">
+
+    <section class="badges">
+        <a href="" class="badge">
+            <div>
+                <h2>Disquettes</h2>
+                <h3><%= stats.totalValidate %></h3>
+            </div>
+        </a>
+        <a href="/admin/waiting" class="badge">
+            <div>
+                <h2>En attente</h2>
+                <h3><%= stats.totalWaiting %></h3>
+            </div>
+        </a>
+        <a href="" class="badge">
+            <div>
+                <h2>Tags</h2>
+                <h3><%= stats.totalTags %></h3>
+            </div>
+        </a>
+        <a href="" class="badge">
+            <div>
+                <h2>Temps de validation moyen</h2>
+                <h3>00:00:00</h3>
+            </div>
+        </a>
+    </section>
+
+    <section class="graph-container">
+        <ul class="graph-tabs">
+            <li class="graph-tab">Visites</li>
+            <li class="graph-tab">Requetes sur l'API</li>
+        </ul>
+
+        <div class="graph">
+            <img src="https://i.stack.imgur.com/qSDwc.png" alt="">
+        </div>
+
+    </section>
         
 </div>

@@ -16,7 +16,7 @@ let router = express.Router()
 router
     .get('/', (req, res) => res.redirect('/admin/overview'))
 
-    .get('/overview', authLoggedIn(), getStats, (req, res) => { res.render("admin/layout", {page: "overview"})})
+    .get('/overview', authLoggedIn(), getStats, (req, res) => { res.render("admin/layout", {page: "overview", stats: req.args})})
     .get('/list', authLoggedIn(), showList)
     .get('/waiting', authLoggedIn(), showWaiting)
 

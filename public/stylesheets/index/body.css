@@ -24,16 +24,9 @@ main {
 }
 
 /* UP BUTTON */
-
-.up-button-container {
-
-
-
-}
-
 .up-button {
 
-    margin-top: 5vh;
+    margin-top: 1rem;
 
     position: absolute;
 

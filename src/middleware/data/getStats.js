@@ -20,19 +20,21 @@ module.exports = async (req, res, next) => {
 
     req.args.totalApiRequests = await getTotalApiRequests()
 
+    console.log(req.args)
+
     next()
 
 }
 
 async function getTotalValidate () {
 
-    return await validateDisquette.find().exec()
+    return (await validateDisquette.find().exec()).length
 
 }
 
 async function getTotalWaiting () {
 
-    return await waitingDisquette.find().exec()
+    return (await waitingDisquette.find().exec()).length
 
 }
 
@@ -40,7 +42,7 @@ async function getTotalTags () {
 
     let results = await validateDisquette.find().exec()
 
-    return [...new Set(results.map(res => res.tags).flatMap(res => res))]
+    return [...new Set(results.map(res => res.tags).flatMap(res => res))].length
 
 }
 
@@ -50,7 +52,7 @@ async function getTotalVisites (days) {
 
     let results = await visites.find().exec()
 
-    return results.filter(res => now - res.createdAt.getTime() < days * 24 * 60 * 60 * 1000)
+    return results.filter(res => now - res.createdAt.getTime() < days * 24 * 60 * 60 * 1000).length
 
 }
 
@@ -60,7 +62,7 @@ async function getTotalApiRequests (days) {
 
     let results = await apiRequests.find().exec()
 
-    return results.filter(res => now - res.createdAt.getTime() < days * 24 * 60 * 60 * 1000)
+    return results.filter(res => now - res.createdAt.getTime() < days * 24 * 60 * 60 * 1000).length
 
 }
 

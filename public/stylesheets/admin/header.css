@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
+.header {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Mulish, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    padding: 0 3rem;
+    width: 88vw;
+    height: 8vh;
+}
+
+.header .left span {
+
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    font-weight: bolder;
+    letter-spacing: 0.1rem;
+}
+
+.header .right {
+
+    display: flex;
+    align-items: center;
+}
+
+.header .right span {
+
+    margin-right: 1.5rem;
+    font-size: large;
+}
+
+.logout {
+
+    width: 25px;
+    fill: red;
+}

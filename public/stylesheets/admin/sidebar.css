@@ -1,11 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
 :root {
     --primary-text-color: whitesmoke;
-    --select-background-color: darkgray;
+    --select-background-color: #404959;
     --background-color: #374151;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 .side-bar {
+
     width: 12vw;
     height: 100vh;
     display: flex;
@@ -22,6 +28,7 @@
 }
 
 .tab {
+
     display: flex;
     width: 100%;
     align-content: center;
@@ -29,9 +36,10 @@
 }
 
 .current {
+    
     background-color: var(--select-background-color);
-    box-sizing: border-box;
-    border-left: 0.3rem solid;
+
+    border-left: 0.3rem solid #DDE2FF;
 }
 
 .tab .text {
