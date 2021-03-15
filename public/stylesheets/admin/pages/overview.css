@@ -85,7 +85,7 @@ a {
 
 /* GRAPH */
 
-.graph-container {
+.graph {
 
     width: 90%;
     height: 60vh;
@@ -102,29 +102,7 @@ a {
     align-items: center;
 }
 
-.graph-tabs {
-
-    display: flex;
-    justify-content: space-between;
-
-    width: 20%;
-
-}
-
-.graph-tab {
-
-    text-align: center;
-    width: 10vw;
-
-    font-size: 0.9rem;
-}
-
-.graph {
+.graph > canvas {
 
 
-}
-
-.graph > img {
-
-    height: 48vh;
 }
