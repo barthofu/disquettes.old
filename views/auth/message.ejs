@@ -1,27 +1,11 @@
-<% if(locals.message){
-    
-    let msg = ""
+<% if(locals.flash){ %>
+<% if(locals.flash.error){ %>
+<div>
+<%= locals.flash.data.message %>
+</div>
 
-    switch (locals.message.name) {
-        case "UserExistsError":
-            msg = "L'utilisateur existe déjà"
-            break;
-        case "IncorrectUsernameError":
-            msg = "Le nom d'utilisateur est incorrect"
-            break;
-        case "IncorrectPasswordError":
-            msg = "Le mot de passe est incorrect"
-            break;
-        case "loginError":
-            msg = "Le mot de passe ou le nom d'utilisateur est incorret"
-            break;
-        default:
-            msg = locals.message.message
-    }
-
-%>
-    <div>
-        <%- msg-%>
-    </div>
-    
-<% } %>
+<% if(locals.flash.succes){ %>
+<div>
+    SUCCES <%= locals.flash.succes %>
+</div>
+<% }} }%>
