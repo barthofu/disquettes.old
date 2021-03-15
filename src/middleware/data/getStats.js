@@ -1,7 +1,8 @@
-const mongoose = require('mongoose'),
+const mongoose                                = require('mongoose'),
+      dateFormat                              = require('dateformat'),
 
       { waitingDisquette, validateDisquette } = require("../../models/Disquette"),
-      visites                                 = mongoose.model('visites', require("../../models/Visite"), 'visites'),
+      visites                                 = mongoose.model('visits', require("../../models/Visite"), 'visits'),
       apiRequests                             = mongoose.model('apiRequests', require("../../models/Visite"), 'apiRequests')
 
 module.exports = async (req, res, next) => {
@@ -18,11 +19,27 @@ module.exports = async (req, res, next) => {
 
     req.args.totalVisites = await getTotalVisites(days)
 
-    req.args.totalApiRequests = await getTotalApiRequests()
+    req.args.totalApiRequests = await getTotalApiRequests(days)
+
+    req.args.requests = await getRequests(days)
 
     console.log(req.args)
 
     next()
+
+}
+
+async function getRequests (days) {
+
+    let now = new Date().getTime()
+
+    return {
+
+        api: (await apiRequests.find().select({ createdAt: 1 }).exec()).filter(res => now - res.createdAt.getTime() < days * 24 * 60 * 60 * 1000).map(res => dateFormat(res.createdAt, "dd/mm")),
+
+        visites: (await visites.find().select({ createdAt: 1 }).exec()).filter(res => now - res.createdAt.getTime() < days * 24 * 60 * 60 * 1000).map(res => dateFormat(res.createdAt, "dd/mm"))
+
+    }
 
 }
 

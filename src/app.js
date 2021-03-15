@@ -1,14 +1,17 @@
-const createError   = require('http-errors'),
-      express       = require('express'),
-      path          = require('path'),
-      cookieParser  = require('cookie-parser'),
-      logger        = require('morgan'),
-      passport      = require('passport'),
-      session       = require('cookie-session'),
-      LocalStrategy = require('passport-local').Strategy,
-      Account       = require('./models/User'),
-      flash         = require('./middleware/error/flash');
+const createError           = require('http-errors'),
+      express               = require('express'),
+      path                  = require('path'),
+      cookieParser          = require('cookie-parser'),
+      logger                = require('morgan'),
+      passport              = require('passport'),
+      session               = require('cookie-session'),
+      LocalStrategy         = require('passport-local').Strategy,
 
+      Account               = require('./models/User'),
+
+      flash                 = require('./middleware/error/flash'),
+      apiRequestsCounter    = require('./middleware/counter/apiCounter'),
+      visitsCounter          = require('./middleware/counter/visitsCounter')
 
 var app = express();
 
@@ -53,9 +56,11 @@ const webRoute = require('./routes/web')
 const adminRoute = require('./routes/admin')
 const authRoute = require('./routes/auth')
 
+app.use(visitsCounter)
+
 app.use('/admin', adminRoute)
 app.use('/', indexRoute)
-app.use('/api', apiRoute)
+app.use('/api', apiRequestsCounter, apiRoute)
 app.use('/web', webRoute)
 app.use('/auth', authRoute)
     // catch 404 and forward to error handler
