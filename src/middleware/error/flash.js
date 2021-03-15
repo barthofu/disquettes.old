@@ -5,11 +5,11 @@ module.exports = function (req, res, next) {
     req.session.flash = undefined
   }
 
-  req.flash = function (type, content, data = {}) {
+  req.flash = function (type, message, data = {}) {
 
     if (req.session.flash === undefined) req.session.flash = {}
 
-    req.session.flash[type] = content
+    req.session.flash[type] = message
     req.session.flash.data = data
     
   }

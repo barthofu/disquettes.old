@@ -1,32 +1,22 @@
-const passport = require('passport')
+const passport = require('passport'),
+Account       = require('../../models/User')
 
-module.exports = function(req, res, next) {
 
-    passport.authenticate('local', function(err, user, info) {
+module.exports = (req, res, next) => {
 
-        if (err) {
-
-            req.flash("error", "Authentication impossible", err)
-            return next(err);
-        }
-
-        if (! user) {
-
-            req.flash("error", "probleme serveur")
-            return res.redirect('/auth/login')
-        }
-
-        req.login(user, loginErr => {
-
-            if (loginErr) {
-
-                req.flash("error", "Authentication impossible", LoginErr)
-                return next(loginErr)
-            }
-
-            req.flash("succes", "Authentifier", info)
-            return res.redirect(req.session.returnTo || '/')
-        })
-
-    })(req, res, next)
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      req.flash("error", "login impossible", err)
+      return res.redirect('/auth/login')
+      }
+    if (!user) { 
+      req.flash("error", "login impossible", info)
+      return res.redirect('/auth/login')
+     }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      req.flash("succes", "Authentifier")
+      return res.redirect(req.session.returnTo || '/')
+    });
+  })(req, res, next); 
 }

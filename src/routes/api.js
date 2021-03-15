@@ -17,9 +17,9 @@ router
 
     .get('/get', get)
 
-    .post('/validate', validate)
+    .post('/validate', authLoggedIn(), validate)
 
-    .post('/delete', deleteDisquette)
+    .post('/delete',authLoggedIn(), deleteDisquette)
 
     // .get('/disquette/:id',(req, res) =>{
        

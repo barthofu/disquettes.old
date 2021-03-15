@@ -30,6 +30,24 @@ const Account = new Schema(
     }
 );
 
-Account.plugin(passportLocalMongoose);
+passwordValidator = function(password,cb) {
+    if (password.length < 5) {
+      return cb({
+            name: 'PasswordValidatorError',
+            message: 'Gros donne un mot de passe avec plus de lettre stp'
+      })
+    }
+    // return an empty cb() on success
+    return cb()
+  }
+
+
+opt = {
+    limitAttempts: 10,
+    passwordValidator: passwordValidator
+   
+}
+
+Account.plugin(passportLocalMongoose, opt);
 
 module.exports = mongoose.model('Account', Account);
