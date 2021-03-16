@@ -4,12 +4,51 @@
 
 
     <% if(locals.flash.error){ %>
+
+
+
+              <script>
+                  Toastify({
+  text: "<b>Erreur!</b></br><i><%= locals.flash.error%></i>",
+  duration: 3000,
+  destination: "https://github.com/apvarun/toastify-js",
+  newWindow: true,
+  close: true,
+  gravity: "bottom", // `top` or `bottom`
+  position: "right", // `left`, `center` or `right`
+  backgroundColor: "darkred",
+  stopOnFocus: true, // Prevents dismissing of toast on hover
+}).showToast();
+        
+            </script>
+
 <div>
-    ERROR <%= locals.flash.error %>
+    ERROR frr <%= locals.flash.error %>
 </div>
 <% } %>
 
 <% if(locals.flash.succes){ %>
+
+
+    <script>
+        Toastify({
+text: "<b>Succes!</b></br><i><%= locals.flash.succes%></i> ",
+duration: 3000,
+destination: "https://github.com/apvarun/toastify-js",
+newWindow: true,
+close: true,
+gravity: "bottom", // `top` or `bottom`
+position: "right", // `left`, `center` or `right`
+backgroundColor: "darkgreen",
+stopOnFocus: true, // Prevents dismissing of toast on hover
+}).showToast();
+
+  </script>
+
+
+
+
+
     <div>
         SUCCES <%= locals.flash.succes %>
     </div>
