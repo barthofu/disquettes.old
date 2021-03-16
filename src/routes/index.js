@@ -1,9 +1,11 @@
-var express = require('express')
-const notFound = require('../utils/404')
+const express   = require('express'),
+      notFound  = require('../utils/404'),
 
-let router = express.Router()
+      getTags   = require('../middleware/data/getTags')
+
+let router      = express.Router()
 
 router
-  .get('/', (req, res) => res.render("index"))
+  .get('/', getTags, (req, res) => res.render("index", { tags: req.tags }))
 
 module.exports = router

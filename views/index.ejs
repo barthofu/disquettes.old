@@ -102,9 +102,11 @@
                                 <label class="key">Tag</label> 
                                 <select class="value">
                                     <option value="all">All</option>
-                                    <option value="anime">Anime</option>
-                                    <option value="musique">Musique</option>
-                                    <option value="film">Film</option>
+
+                                    <% for (let tag of tags) { %>
+                                        <option value="<%= tag %>"><%= tag %></option>
+                                    <% } %>
+
                                 </select>
                             </div>
     
