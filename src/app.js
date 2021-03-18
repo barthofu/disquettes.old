@@ -10,8 +10,7 @@ const createError           = require('http-errors'),
       Account               = require('./models/User'),
 
       flash                 = require('./middleware/error/flash'),
-      apiRequestsCounter    = require('./middleware/counter/apiCounter'),
-      visitsCounter          = require('./middleware/counter/visitsCounter')
+      visitsCounter         = require('./middleware/counter/visitsCounter')
 
 var app = express();
 
@@ -60,7 +59,7 @@ app.use(visitsCounter)
 
 app.use('/admin', adminRoute)
 app.use('/', indexRoute)
-app.use('/api', apiRequestsCounter, apiRoute)
+app.use('/api', apiRoute)
 app.use('/web', webRoute)
 app.use('/auth', authRoute)
     // catch 404 and forward to error handler

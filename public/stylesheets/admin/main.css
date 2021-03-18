@@ -1,4 +1,35 @@
+:root {
+
+    --primary-background: #F7F8FC;
+    --primary-text: whitesmoke;
+
+    --primary-sidebar-background: #374151;
+    --select-sidebar-background: #404959;
+    --select-sidebar-border: #DDE2FF;
+    --primary-sidebar-text: whitesmoke;
+
+    --badge-background: white;
+    --badge-title: #9FA2B4;
+
+}
+
+/* :root {
+
+    --primary-background: #141B2D;
+    --primary-text: #FFE5E5;
+
+    --primary-sidebar-background: #1F2940;
+    --select-sidebar-background: #2A3349;
+    --select-sidebar-border: #DDE2FF;
+    --select-sidebar-text: #DDE2FF;
+    --primary-sidebar-text: #A4A6B3;
+
+    --badge-background: #1F2940;
+    --badge-title: #9FA2B4;
+
+} */
+
 body {
 
-    background: #F7F8FC;
+    background: var(--primary-background);
 }

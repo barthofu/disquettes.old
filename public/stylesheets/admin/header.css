@@ -7,10 +7,12 @@
     justify-content: space-between;
     align-items: center;
     font-family: Mulish, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--primary-text);
 
     padding: 0 3rem;
     width: 87vw;
     height: 8vh;
+
 }
 
 .header .left span {
