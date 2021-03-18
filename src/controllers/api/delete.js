@@ -1,13 +1,17 @@
 const mongoose                                  = require('mongoose'),
 
-      { waitingDisquette, validateDisquette }   = require('../../models/Disquette')
-
+      { waitingDisquette, validateDisquette, disquetteSchema }   = require('../../models/Disquette')
 
 module.exports = (req, res) => {
 
-    waitingDisquette.findByIdAndDelete(req.body.id).then(result => {
+    req.body.type = req.body.type || "waiting"
+    let type = "waiting"
+    if(req.body.type == "validate") type = "validate" 
 
-       
+
+    mongoose.model(type, disquetteSchema, type).findByIdAndDelete(req.body.id).then(result => {
+
+            
         result = result?.toJSON()
         if (!result){ return res.json({
             status: 'error',

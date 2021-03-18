@@ -8,15 +8,9 @@ module.exports = (req, res) => {
     }
 
     waitingDisquette.findAll(pageOptions).then(results => {
-
-    
-        console.log(results)
         res.render("admin/layout", {page: "waiting", disquette: results, pageOptions: pageOptions})
-
     }).catch(err => {
-
         req.flash('error', err.message, err)
-
     })
 
 }

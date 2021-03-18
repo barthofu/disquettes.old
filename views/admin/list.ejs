@@ -1,3 +1,178 @@
-<div>
-    Salut
-</div>
+
+<div id="tableHTML"></div>
+
+
+
+<script>
+
+ function deleteDisquette(e, cell){
+
+    console.log(cell.getData())
+
+
+        fetch(new Request('/api/delete', { method: 'post',    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+     body: JSON.stringify( {
+          id: cell.getData()._id,
+          type: "validate"
+         } )}))
+        .then(data => data.json())
+        .then(data => {
+                console.log(data)
+                if(data.status === "error"){
+                        console.log("error")
+                }else if (data.status === "success"){
+                    console.log("succes")
+                    cell.getRow().delete()
+                }
+        })
+
+    }
+    
+
+function waitingDisquette(e, cell){
+
+alert("cell clicked - " + cell.getData())
+}
+
+
+function cellEdit(cell){
+
+    console.log(cell.getRow().getData())
+
+        fetch(new Request('/api/list/update/validate', { method: 'post',   
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+     body: JSON.stringify({data: cell.getRow().getData(), type: "validate" })}))
+        .then(data => data.json())
+        .then(data => {
+                console.log(data)
+                if(data.status === "error"){
+                        console.log("error")
+                }else if (data.status === "success"){
+                    console.log("succes")
+        }}) 
+
+    }
+
+
+
+function updateDisquette(data){
+    console.log(data)
+    fetch(new Request('/api/post', { method: 'post',    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+     body: JSON.stringify( {
+         data,
+          type: "validate"
+         } )}))
+        .then(data => data.json())
+        .then(data => {
+                console.log(data)
+                if(data.status === "error"){
+                        console.log("error")
+                }else if (data.status === "success"){
+                    console.log("succes")
+                }
+        })
+}
+
+
+    var table = new Tabulator("#tableHTML", {
+    height:"600px",
+    layout:"fitColumns",
+    ajaxURL:"/api/list/validate",
+    ajaxProgressiveLoad:"scroll",
+    paginationSize:5,
+    cellEdited: cellEdit,
+    // dataChanged:function(data){
+     
+    //     console.log(data)
+    // fetch(new Request('/api/list/update/validate', { method: 'post',    headers: {
+    //   'Accept': 'application/json',
+    //   'Content-Type': 'application/json'
+    // },
+    //  body: JSON.stringify( {
+    //      data,
+    //       type: "validate"
+    //      } )}))
+    //     .then(data => data.json())
+    //     .then(data => {
+    //             console.log(data)
+    //             if(data.status === "error"){
+    //                     console.log("error")
+    //             }else if (data.status === "success"){
+    //                 console.log("succes")
+    //             }
+    //     })
+
+
+    // },
+    ajaxProgressiveLoadScrollMargin:300,
+    placeholder:"Pas de données",
+    columns:[
+        {title:"Disquette", field:"disquette", editor: "input", sorter:"string", width:200},
+        {title:"Tags",editor: "input", field:"tags"},
+        {title:"Autheur", field:"author", editor: "input", sorter:"string"},
+        //{title:"Rating", field:"rating", formatter:"star", align:"center", width:100},
+        {title:"Genre", field:"genre", sorter:"string",formatter:function(cell, formatterParams){
+            data = cell.getValue()
+            switch (data) {
+                case 0:
+                    return "Tout public"
+                    break;
+                case 1:
+                    return "Pour une femme"
+                    break;
+                case 2:
+                    return "Pour un homme"
+                    break;
+                default:
+                    break;
+            }
+        }},
+        {title:"Age", field:"age", sorter:"date", align:"center",formatter:function(cell, formatterParams){
+            data = cell.getValue()
+            switch (data) {
+                case 0:
+                    return "Tout public"
+                    break;
+                case 1:
+                    return "18-25ans"
+                    break;
+                case 2:
+                    return "26-35ans"
+                    break;
+                case 3:
+                    return "36ans et +"
+                    break;
+                default:
+                    break;
+            }
+        }},
+        {title:"Langue", field:"lang", sorter:"date", align:"center"},
+        {title:"Proposer le", field:"submittedAt", sorter:"date", align:"center"},
+        {title:"Note", field:"votes", sorter:"number", align:"center",formatter:function(cell, formatterParams){
+
+            let ratio = (cell.getValue().up / cell.getValue().down *100)
+            if(!ratio) return "X"
+            return (ratio+ "%")
+        }},
+        {title:"Supprimer", field:"car", align:"center", formatter:"tickCross",
+        cellClick:deleteDisquette},
+    ],
+}
+);
+
+
+
+
+
+
+
+</script>

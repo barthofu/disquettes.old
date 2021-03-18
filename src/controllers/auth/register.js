@@ -12,10 +12,11 @@ module.exports = (req, res) => {
         password: req.body.password
     })
 
+
     Account.register(acc, req.body.password)
 .then(result =>{
 
-    console.log('registering user: ' + acc.username)    
+    console.log('registering user: ' + acc.username)
     passport.authenticate('local')(req, res, function () {
         return res.redirect(req.session.returnTo || '/')
       });

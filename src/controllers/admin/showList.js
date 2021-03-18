@@ -2,23 +2,15 @@ const { validateDisquette } = require('../../models/Disquette')
 
 module.exports = (req, res) => {
 
-    let { page = 0, limit = 20, tag, query = '' } = req.query
+    const pageOptions = {
+        page: parseInt(req.query.page, 10) || 0,
+        limit: parseInt(req.query.limit, 10) || 10
+    }
 
-    let options = {}
-
-    if (query) options.disquette = { $in : [ query ] }
-    if (tag) options.tags = tag
-
-    validateDisquette.findBy(options, { page: parseInt(page), limit: parseInt(limit) }).then(results => {
-        
-        res.json(results)
-
-        //res.render("admin/layout", {page: "list", results: results})
-
+    validateDisquette.findAll(pageOptions).then(results => {
+        res.render("admin/layout", {page: "list", disquette: results, pageOptions: pageOptions})
     }).catch(err => {
-    
         req.flash('error', err.message, err)
-
     })
 
 }

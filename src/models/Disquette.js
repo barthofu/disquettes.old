@@ -59,4 +59,4 @@ disquetteSchema.statics.post = async function(args) {
 const validateDisquette = mongoose.model('validate', disquetteSchema, 'validate')
 const waitingDisquette = mongoose.model('waiting', disquetteSchema, 'waiting')
 
-module.exports= { validateDisquette, waitingDisquette }
+module.exports= { validateDisquette, waitingDisquette, disquetteSchema  }  

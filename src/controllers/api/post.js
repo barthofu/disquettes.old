@@ -1,11 +1,17 @@
-const { waitingDisquette } = require('../../models/Disquette')
+const { waitingDisquette, disquetteSchema } = require('../../models/Disquette'),
+        mongoose                                  = require('mongoose')
 
-module.exports = (req, res) => {
+module.exports = (req, res, data) => {
 
     req.body.tags = req.body.tag
     req.body.author = req.user.username || undefined
 
-    waitingDisquette.post(req.body).then(result => {
+    let type = "waiting"
+    if(req.body.type == "validate") type = "validate" 
+    console.log(req.body.data)
+
+
+    mongoose.model(type, disquetteSchema, type).post(req.body.data ? req.body.data : req.body).then(result => {
 
         res.json({
             status: "success",

@@ -6,7 +6,7 @@ module.exports = (req, res) => {
 
     waitingDisquette.post(req.body).then(results => {
 
-        console.log("insertion succeful")
+        console.log("insertion succesful")
         req.flash("succes", "Disquette added to database", results)
         res.redirect('#')
 
