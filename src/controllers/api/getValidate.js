@@ -10,13 +10,13 @@ module.exports = (req, res) => {
     validateDisquette.countDocuments({}).then(count=>{
     validateDisquette.findAll(pageOptions).then(results => {
 
-    
         res.json({
+
             status: 'success',
             data: results,
             last_page: Math.ceil(count/pageOptions.limit)
-
         })
+
     }).catch(err => {
 
         res.json({ 
@@ -25,6 +25,7 @@ module.exports = (req, res) => {
             details: err 
         })
     })
+    
     })
 
 }

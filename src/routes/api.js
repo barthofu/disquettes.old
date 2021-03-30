@@ -2,6 +2,7 @@ const express                                   = require('express'),
       notFound                                  = require('../utils/404'),
 
       authLoggedIn                              = require('../middleware/auth/authLoggedIn'),
+      apiRequestsCounter                        = require('../middleware/counter/apiCounter'),
 
       post                                      = require('../controllers/api/post'),
       get                                       = require('../controllers/api/get'),
@@ -15,8 +16,8 @@ const express                                   = require('express'),
 let router = express.Router();
 
 router
-    .post('/post', authLoggedIn(), post)
-    .post('/list/update/validate', authLoggedIn(),(req, res) =>{
+    .post('/post', authLoggedIn(), apiRequestsCounter, post)
+    .post('/list/update/validate', authLoggedIn(), (req, res) =>{
 
         console.log(req.body.data)
 
@@ -37,14 +38,14 @@ router
         })
     }) 
 
-    .get('/get', get)
+    .get('/get', apiRequestsCounter, get)
     //.get('/waiting', authLoggedIn(), getWaiting)
     .get('/list/waiting', authLoggedIn(), getListWaiting)
 
     .get('/list/validate', authLoggedIn(), getListValidate)
 
-    .post('/validate', authLoggedIn(), validate)
-    .post('/delete',authLoggedIn(), deleteDisquette)
+    .post('/validate', apiRequestsCounter, authLoggedIn(), validate)
+    .post('/delete', apiRequestsCounter, authLoggedIn(), deleteDisquette)
 
     // .get('/disquette/:id',(req, res) =>{
        
@@ -61,7 +62,6 @@ router
     //     })
     
     // })
-
 
     .get(notFound)
 

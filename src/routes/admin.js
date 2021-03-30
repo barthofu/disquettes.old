@@ -5,7 +5,6 @@ const express                                   = require('express'),
       authLoggedIn                              = require('../middleware/auth/authLoggedIn'),
 
       showDashboard                             = require('../controllers/admin/showDashboard'),
-      showList                                  = require('../controllers/admin/showList'),
       submitDisquette                           = require('../controllers/submit/submit'),
       showWaiting                               = require('../controllers/admin/showWaiting'),
 
@@ -16,11 +15,11 @@ let router = express.Router()
 router
     .get('/', (req, res) => res.redirect('/admin/overview'))
 
-    .get('/overview', authLoggedIn(), getStats, (req, res) => { res.render("admin/layout", {page: "overview", stats: req.args})})
-    .get('/list', authLoggedIn(), showList)
+    .get('/overview', authLoggedIn(), getStats, (req, res) => res.render("admin/layout", {page: "overview", stats: req.args}))
+    .get('/list', authLoggedIn(), (req, res) => res.render("admin/layout", {page: "list"}))
     .get('/waiting', authLoggedIn(), showWaiting)
 
-    .get('/submit', authLoggedIn(), (req, res) => { res.render("admin/layout", {page: "submit"})})
+    .get('/submit', authLoggedIn(), (req, res) => res.render("admin/layout", {page: "submit"}))
     .post('/submit', authLoggedIn(), submitDisquette)
 
     .get('/disquette/:id', authLoggedIn(), (req, res) =>{})

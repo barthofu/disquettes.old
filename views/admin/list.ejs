@@ -85,10 +85,11 @@ function updateDisquette(data){
 
     var table = new Tabulator("#tableHTML", {
     height:"600px",
-    layout:"fitColumns",
+    layout:"fitDataFill",
     ajaxURL:"/api/list/validate",
     ajaxProgressiveLoad:"scroll",
     paginationSize:5,
+    responsiveLayout: "collapse",
     cellEdited: cellEdit,
     // dataChanged:function(data){
      
@@ -116,54 +117,58 @@ function updateDisquette(data){
     ajaxProgressiveLoadScrollMargin:300,
     placeholder:"Pas de données",
     columns:[
-        {title:"Disquette", field:"disquette", editor: "input", sorter:"string", width:200},
-        {title:"Tags",editor: "input", field:"tags"},
-        {title:"Autheur", field:"author", editor: "input", sorter:"string"},
+        {title:"Disquette", field:"disquette", editor: "input", sorter:"string"},
+        {title:"Tags",editor: "input", field:"tags", width: 100},
+        {title:"Auteur", field:"author", editor: "input", sorter:"string" },
         //{title:"Rating", field:"rating", formatter:"star", align:"center", width:100},
-        {title:"Genre", field:"genre", sorter:"string",formatter:function(cell, formatterParams){
+        {title:"Genre", field:"genre", sorter:"string", formatter:function(cell, formatterParams){
             data = cell.getValue()
             switch (data) {
                 case 0:
-                    return "Tout public"
+                    return "All"
                     break;
                 case 1:
-                    return "Pour une femme"
+                    return "Femme"
                     break;
                 case 2:
-                    return "Pour un homme"
+                    return "Homme"
                     break;
                 default:
                     break;
             }
         }},
-        {title:"Age", field:"age", sorter:"date", align:"center",formatter:function(cell, formatterParams){
+        {title:"Age", field:"age", sorter:"date", align:"center", formatter:function(cell, formatterParams){
             data = cell.getValue()
             switch (data) {
                 case 0:
-                    return "Tout public"
+                    return "All"
                     break;
                 case 1:
-                    return "18-25ans"
+                    return "18-25"
                     break;
                 case 2:
-                    return "26-35ans"
+                    return "26-35"
                     break;
                 case 3:
-                    return "36ans et +"
+                    return "36+"
                     break;
                 default:
                     break;
             }
         }},
         {title:"Langue", field:"lang", sorter:"date", align:"center"},
-        {title:"Proposer le", field:"submittedAt", sorter:"date", align:"center"},
-        {title:"Note", field:"votes", sorter:"number", align:"center",formatter:function(cell, formatterParams){
+        {title:"Date", field:"submittedAt", sorter:"date", align:"center", formatter: function(cell, formatterParams) {
+
+            
+            return new Date(cell.getValue()).toLocaleString('fr-FR', { day: "2-digit", month: "2-digit", year: "numeric" })
+        }},
+        {title:"Note", field:"votes", sorter:"number", align:"center", formatter:function(cell, formatterParams){
 
             let ratio = (cell.getValue().up / cell.getValue().down *100)
             if(!ratio) return "X"
             return (ratio+ "%")
         }},
-        {title:"Supprimer", field:"car", align:"center", formatter:"buttonCross",
+        {title:"Supprimer", field:"car", align:"center", formatter:"buttonCross", widthGrow: 20,
         cellClick:deleteDisquette},
     ],
 }
