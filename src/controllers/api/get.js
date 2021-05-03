@@ -23,14 +23,12 @@ module.exports = (req, res) => {
 		tag = "all",
 		age = 0,
 		genre = 0,
-		nb = 1,
 		name = "?????",
 		lang = "FR",
 	} = req.query;
 
 	age = parseInt(age);
 	genre = parseInt(genre);
-	nb = parseInt(nb);
 
 	let options = { lang };
 
