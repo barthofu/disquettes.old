@@ -20,8 +20,6 @@ module.exports =  (req, res, next) => {
 
 
 
-    
-
      validateDisquette.aggregate(aggregatorOpts).exec().then(results=>{
 
         
