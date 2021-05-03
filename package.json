@@ -22,6 +22,9 @@
         "passport-local-mongoose": "^6.1.0"
     },
     "devDependencies": {
-        "nodemon": "*"
+        "eslint": "^7.24.0",
+        "eslint-config-prettier": "^8.2.0",
+        "nodemon": "*",
+        "prettier": "2.2.1"
     }
 }

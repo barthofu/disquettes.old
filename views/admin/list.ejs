@@ -61,6 +61,63 @@ function cellEdit(cell){
 
 
 
+    var tagsEditor = function(cell, onRendered, success, cancel){
+    //cell - the cell component for the editable cell
+    //onRendered - function to call when the editor has been rendered
+    //success - function to call to pass the successfuly updated value to Tabulator
+    //cancel - function to call to abort the edit and return to a normal cell
+
+    //create and style input
+    var cellValue = cell.getValue()
+    input = document.createElement("input");
+
+    input.setAttribute("type", "tags");
+
+    input.style.padding = "4px";
+    input.style.width = "100%";
+    input.style.boxSizing = "border-box";
+
+    input.value = cellValue;
+
+    console.log(tagsArray);
+    tagsArray = cellValue[0].split(/,| /)
+    onRendered(function(){
+    });
+
+    function onChange(){
+        if(input.value != cellValue){
+            console.log(tagsArray);
+            success(tagsArray);
+        }else{
+            cancel();
+        }
+    }
+    //submit new value on blur or change
+
+    //submit new value on enter
+
+    return input;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function updateDisquette(data){
     console.log(data)
     fetch(new Request('/api/post', { method: 'post',    headers: {
@@ -88,7 +145,7 @@ function updateDisquette(data){
     layout:"fitDataFill",
     ajaxURL:"/api/list/validate",
     ajaxProgressiveLoad:"scroll",
-    paginationSize:5,
+    paginationSize:20,
     responsiveLayout: "collapse",
     cellEdited: cellEdit,
     // dataChanged:function(data){
@@ -118,7 +175,7 @@ function updateDisquette(data){
     placeholder:"Pas de données",
     columns:[
         {title:"Disquette", field:"disquette", editor: "input", sorter:"string"},
-        {title:"Tags",editor: "input", field:"tags", width: 100},
+        {title:"Tags",editor: tagsEditor, field:"tags", width: 100},
         {title:"Auteur", field:"author", editor: "input", sorter:"string" },
         //{title:"Rating", field:"rating", formatter:"star", align:"center", width:100},
         {title:"Genre", field:"genre", sorter:"string", formatter:function(cell, formatterParams){

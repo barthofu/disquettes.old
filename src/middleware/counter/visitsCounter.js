@@ -13,7 +13,8 @@ module.exports = (req, res, next) => {
 
     let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
 
-    if (ip == '::1') ip = "0.0.0.0"
+    if (ip == '::1' || !ip) ip = "0.0.0.0"
+    
 
     visites.checkUser(ip, req.path, minutes).then(result => {
 
@@ -22,7 +23,7 @@ module.exports = (req, res, next) => {
             new visites({
                 ip,
                 createdAt: new Date(),
-                country: ip !== "0.0.0.0" ? geoip.lookup(ip).country || "unknown" : "unknown",
+                country: ip !== "0.0.0.0" ? geoip?.lookup(ip)?.country || "unknown" : "unknown",
                 url: req.path,
                 agent: req.headers['user-agent']
             }).save().then(() => {

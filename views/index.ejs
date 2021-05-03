@@ -104,7 +104,7 @@
                                     <option value="all">All</option>
 
                                     <% for (let tag of tags) { %>
-                                        <option value="<%= tag %>"><%= tag %></option>
+                                        <option value="<%= tag.tag %>"><%= tag.tag +"  <-- " + tag.count %></option>
                                     <% } %>
 
                                 </select>

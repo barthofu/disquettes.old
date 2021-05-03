@@ -47,6 +47,8 @@ router
     .post('/validate', apiRequestsCounter, authLoggedIn(), validate)
     .post('/delete', apiRequestsCounter, authLoggedIn(), deleteDisquette)
 
+    
+
     // .get('/disquette/:id',(req, res) =>{
        
     //     console.log(req.params.id)
