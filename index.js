@@ -33,6 +33,6 @@ mongoose
 		mongoose.set('useFindAndModify', false);
 
 		app.listen(PORT, () => {
-			console.log('server started ➜ localhost:4000');
+			console.log(`server started ➜ localhost:${PORT}`);
 		});
 	});
