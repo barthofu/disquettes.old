@@ -1,10 +1,5 @@
 <div id="tableHTML"></div>
 
-<style>
-	.tabulator .tabulator-row .tabulator-cell[tabulator-field='remove']:hover {
-		cursor: crosshair !important;
-	}
-</style>
 <script>
 	function deleteDisquette(e, cell) {
 		console.log(cell.getData());
@@ -128,13 +123,16 @@
 				data: liste,
 			});
 
-			select_2.on('select2:closing', function (e) {
-				console.log(liste);
+            function successFunc(){
+                console.log(liste);
 				console.log(select_2.val());
 				success(select_2.val());
+			    select_2.select2('destroy');
+    }
 
-				// select_2.select2('destroy');
-			});
+
+			select_2.on('select2:closing', successFunc);
+            select_2.on('blur', successFunc);
 		});
 
 		//add editor to cell
