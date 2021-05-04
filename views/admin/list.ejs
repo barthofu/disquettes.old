@@ -1,23 +1,17 @@
 
 <div id="tableHTML"></div>
 
-
-
+<style>
+    .tabulator .tabulator-row .tabulator-cell[tabulator-field="remove"]:hover{
+    cursor:crosshair !important;
+}
+</style>
 <script>
-
-
-
-
-
-
-
-
 
 
  function deleteDisquette(e, cell){
 
     console.log(cell.getData())
-
 
         fetch(new Request('/api/delete', { method: 'post',    headers: {
       'Accept': 'application/json',
@@ -41,85 +35,30 @@
     }
     
 
-function waitingDisquette(e, cell){
-
-alert("cell clicked - " + cell.getData())
-}
-
-
 function cellEdit(cell){
 
-    console.log(cell.getRow().getData())
 
+
+    console.log(cell.getRow().getData())
         fetch(new Request('/api/list/update/validate', { method: 'post',   
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
      body: JSON.stringify({data: cell.getRow().getData(), type: "validate" })}))
-        .then(data => data.json())
+        .then(data =>{
+            data.json()
+        } )
         .then(data => {
                 console.log(data)
                 if(data.status === "error"){
                         console.log("error")
                 }else if (data.status === "success"){
                     console.log("succes")
+                    cell.delete()
         }}) 
 
     }
-
-
-
-    var tagsEditor = function(cell, onRendered, success, cancel){
-    //cell - the cell component for the editable cell
-    //onRendered - function to call when the editor has been rendered
-    //success - function to call to pass the successfuly updated value to Tabulator
-    //cancel - function to call to abort the edit and return to a normal cell
-
-    //create and style input
-    var cellValue = cell.getValue()
-    input = document.createElement("input");
-
-    input.setAttribute("type", "tags");
-
-    input.style.padding = "4px";
-    input.style.width = "100%";
-    input.style.boxSizing = "border-box";
-
-    input.value = cellValue;
-
-    console.log(tagsArray);
-    tagsArray = cellValue[0].split(/,| /)
-    onRendered(function(){
-    });
-
-    function onChange(){
-        if(input.value != cellValue){
-            console.log(tagsArray);
-            success(tagsArray);
-        }else{
-            cancel();
-        }
-    }
-    //submit new value on blur or change
-
-    //submit new value on enter
-
-    return input;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function updateDisquette(data){
     console.log(data)
@@ -141,7 +80,6 @@ function updateDisquette(data){
                 }
         })
 }
-
 
 
 //create custom editor
@@ -172,7 +110,6 @@ onRendered(function(){
     selected: true
   }
 });
-
 console.log(liste);
 
     select_2.select2({
@@ -199,44 +136,36 @@ return editor;
 
 
     var table = new Tabulator("#tableHTML", {
-    height:"600px",
     layout:"fitDataFill",
     ajaxURL:"/api/list/validate",
     ajaxProgressiveLoad:"scroll",
     paginationSize:20,
     responsiveLayout: "collapse",
     cellEdited: cellEdit,
-    // dataChanged:function(data){
-     
-    //     console.log(data)
-    // fetch(new Request('/api/list/update/validate', { method: 'post',    headers: {
-    //   'Accept': 'application/json',
-    //   'Content-Type': 'application/json'
-    // },
-    //  body: JSON.stringify( {
-    //      data,
-    //       type: "validate"
-    //      } )}))
-    //     .then(data => data.json())
-    //     .then(data => {
-    //             console.log(data)
-    //             if(data.status === "error"){
-    //                     console.log("error")
-    //             }else if (data.status === "success"){
-    //                 console.log("succes")
-    //             }
-    //     })
-
-
-    // },
     ajaxProgressiveLoadScrollMargin:300,
     placeholder:"Pas de données",
+    layout:"fitColumns",
     columns:[
-        {title:"Disquette", field:"disquette", editor: "input", sorter:"string"},
-        {title:"Tags",editor: updateTags, field:"tags", width: 100},
-        {title:"Auteur", field:"author", editor: "input", sorter:"string" },
+        {title:"Disquette", field:"disquette", editor: "input",sorter:"string"},
+        {title:"Tags",editor: updateTags, field:"tags"},
+        {title:"Auteur", field:"author", editor: "input", sorter:"string"},
         //{title:"Rating", field:"rating", formatter:"star", align:"center", width:100},
-        {title:"Genre", field:"genre", sorter:"string", formatter:function(cell, formatterParams){
+        {title:"Genre", field:"genre", sorter:"string",editor:"select",editorParams:{
+    values:[
+        {
+            label:"All",
+            value:0,
+        },
+        {
+            label:"Femme",
+            value:1,
+        },
+        {
+            label:"Homme",
+            value:2,
+        }
+    ],
+},formatter:function(cell, formatterParams){
             data = cell.getValue()
             switch (data) {
                 case 0:
@@ -252,7 +181,26 @@ return editor;
                     break;
             }
         }},
-        {title:"Age", field:"age", sorter:"date", align:"center", formatter:function(cell, formatterParams){
+        {title:"Age", field:"age",editor:"select", editorParams:{
+    values:[
+        {
+            label:"All",
+            value:0,
+        },
+        {
+            label:"18-25",
+            value:1,
+        },
+        {
+            label:"26-35",
+            value:2,
+        },
+        {
+            label:"36+",
+            value:3,
+        }
+    ],
+}, formatter:function(cell, formatterParams){
             data = cell.getValue()
             switch (data) {
                 case 0:
@@ -271,20 +219,17 @@ return editor;
                     break;
             }
         }},
-        {title:"Langue", field:"lang", sorter:"date", align:"center"},
-        {title:"Date", field:"submittedAt", sorter:"date", align:"center", formatter: function(cell, formatterParams) {
-
-            
+        {title:"Langue", field:"lang", sorter:"date"},
+        {title:"Supprimer", field:"remove", formatter:"buttonCross",cellClick:deleteDisquette},
+        {title:"Date", field:"submittedAt", sorter:"date", formatter: function(cell, formatterParams) { 
             return new Date(cell.getValue()).toLocaleString('fr-FR', { day: "2-digit", month: "2-digit", year: "numeric" })
         }},
-        {title:"Note", field:"votes", sorter:"number", align:"center", formatter:function(cell, formatterParams){
+        {title:"Note", field:"votes", sorter:"number", formatter:function(cell, formatterParams){
 
             let ratio = (cell.getValue().up / cell.getValue().down *100)
             if(!ratio) return "X"
             return (ratio+ "%")
         }},
-        {title:"Supprimer", field:"car", align:"center", formatter:"buttonCross", widthGrow: 20,
-        cellClick:deleteDisquette},
     ],
 }
 );
