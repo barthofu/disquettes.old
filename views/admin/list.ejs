@@ -1,243 +1,284 @@
-
 <div id="tableHTML"></div>
 
 <style>
-    .tabulator .tabulator-row .tabulator-cell[tabulator-field="remove"]:hover{
-    cursor:crosshair !important;
-}
+	.tabulator .tabulator-row .tabulator-cell[tabulator-field='remove']:hover {
+		cursor: crosshair !important;
+	}
 </style>
 <script>
+	function deleteDisquette(e, cell) {
+		console.log(cell.getData());
 
+		fetch(
+			new Request('/api/delete', {
+				method: 'post',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					id: cell.getData()._id,
+					type: 'validate',
+				}),
+			})
+		)
+			.then((data) => data.json())
+			.then((data) => {
+				console.log(data);
+				if (data.status === 'error') {
+					console.log('error');
+				} else if (data.status === 'success') {
+					console.log('succes');
+					cell.getRow().delete();
+				}
+			});
+	}
 
- function deleteDisquette(e, cell){
+	function cellEdit(cell) {
+		console.log(cell.getRow().getData());
+		fetch(
+			new Request('/api/list/update/validate', {
+				method: 'post',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					data: cell.getRow().getData(),
+					type: 'validate',
+				}),
+			})
+		)
+			.then((data) => {
+				data.json();
+			})
+			.then((data) => {
+				console.log(data);
+				if (data.status === 'error') {
+					console.log('error');
+				} else if (data.status === 'success') {
+					console.log('succes');
+					cell.delete();
+				}
+			});
+	}
 
-    console.log(cell.getData())
+	function updateDisquette(data) {
+		console.log(data);
+		fetch(
+			new Request('/api/post', {
+				method: 'post',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					data,
+					type: 'validate',
+				}),
+			})
+		)
+			.then((data) => data.json())
+			.then((data) => {
+				console.log(data);
+				if (data.status === 'error') {
+					console.log('error');
+				} else if (data.status === 'success') {
+					console.log('succes');
+				}
+			});
+	}
 
-        fetch(new Request('/api/delete', { method: 'post',    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-     body: JSON.stringify( {
-          id: cell.getData()._id,
-          type: "validate"
-         } )}))
-        .then(data => data.json())
-        .then(data => {
-                console.log(data)
-                if(data.status === "error"){
-                        console.log("error")
-                }else if (data.status === "success"){
-                    console.log("succes")
-                    cell.getRow().delete()
-                }
-        })
+	//create custom editor
+	var updateTags = function (
+		cell,
+		onRendered,
+		success,
+		cancel,
+		editorParams
+	) {
+		//create input element to hold select
+		var editor = document.createElement('select');
+		editor.classList.add('form-control');
+		editor.setAttribute('multiple', 'multiple');
+		editor.value = cell.getValue();
+		editor.style.padding = '3px';
+		editor.style.width = '100%';
+		editor.style.boxSizing = 'border-box';
 
-    }
-    
+		onRendered(function () {
+			console.log('onrendered');
 
-function cellEdit(cell){
+			editor.style.css = '100%';
+			var select_2 = $(editor);
 
+			let liste = cell.getValue().map((element) => {
+				return {
+					id: element,
+					text: element,
+					selected: true,
+				};
+			});
+			console.log(liste);
 
+			select_2.select2({
+				closeOnSelect: false,
+				tags: true,
+				tokenSeparators: [',', ' '],
+				data: liste,
+			});
 
-    console.log(cell.getRow().getData())
-        fetch(new Request('/api/list/update/validate', { method: 'post',   
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-     body: JSON.stringify({data: cell.getRow().getData(), type: "validate" })}))
-        .then(data =>{
-            data.json()
-        } )
-        .then(data => {
-                console.log(data)
-                if(data.status === "error"){
-                        console.log("error")
-                }else if (data.status === "success"){
-                    console.log("succes")
-                    cell.delete()
-        }}) 
+			select_2.on('select2:closing', function (e) {
+				console.log(liste);
+				console.log(select_2.val());
+				success(select_2.val());
 
-    }
+				// select_2.select2('destroy');
+			});
+		});
 
-function updateDisquette(data){
-    console.log(data)
-    fetch(new Request('/api/post', { method: 'post',    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-     body: JSON.stringify( {
-         data,
-          type: "validate"
-         } )}))
-        .then(data => data.json())
-        .then(data => {
-                console.log(data)
-                if(data.status === "error"){
-                        console.log("error")
-                }else if (data.status === "success"){
-                    console.log("succes")
-                }
-        })
-}
+		//add editor to cell
+		return editor;
+	};
 
-
-//create custom editor
-var updateTags = function(cell, onRendered, success, cancel, editorParams){
-
-//create input element to hold select
-var editor = document.createElement("select");
-editor.classList.add("form-control");
-editor.setAttribute("multiple", "multiple");
-editor.value = cell.getValue()
-editor.style.padding = "3px";
-    editor.style.width = "100%";
-    editor.style.boxSizing = "border-box";
-
-
-    
-
-onRendered(function(){
-    console.log("onrendered");
-    
-    editor.style.css = "100%";
-    var select_2 = $(editor);
-
-    let liste = cell.getValue().map(element => {
-  return {
-      id: element,
-      text: element,
-    selected: true
-  }
-});
-console.log(liste);
-
-    select_2.select2({
-        closeOnSelect: false,
-        tags: true,
-        tokenSeparators: [',', ' '],
-        data: liste
-       
-    });
-
-    select_2.on('select2:closing', function (e) {
-        console.log(liste);
-        console.log(select_2.val());
-        success(select_2.val());
-
-       // select_2.select2('destroy');
-    });
-
-});
-
-//add editor to cell
-return editor;
-}
-
-
-    var table = new Tabulator("#tableHTML", {
-    layout:"fitDataFill",
-    ajaxURL:"/api/list/validate",
-    ajaxProgressiveLoad:"scroll",
-    paginationSize:20,
-    responsiveLayout: "collapse",
-    cellEdited: cellEdit,
-    ajaxProgressiveLoadScrollMargin:300,
-    placeholder:"Pas de données",
-    layout:"fitColumns",
-    columns:[
-        {title:"Disquette", field:"disquette", editor: "input",sorter:"string"},
-        {title:"Tags",editor: updateTags, field:"tags"},
-        {title:"Auteur", field:"author", editor: "input", sorter:"string"},
-        //{title:"Rating", field:"rating", formatter:"star", align:"center", width:100},
-        {title:"Genre", field:"genre", sorter:"string",editor:"select",editorParams:{
-    values:[
-        {
-            label:"All",
-            value:0,
-        },
-        {
-            label:"Femme",
-            value:1,
-        },
-        {
-            label:"Homme",
-            value:2,
-        }
-    ],
-},formatter:function(cell, formatterParams){
-            data = cell.getValue()
-            switch (data) {
-                case 0:
-                    return "All"
-                    break;
-                case 1:
-                    return "Femme"
-                    break;
-                case 2:
-                    return "Homme"
-                    break;
-                default:
-                    break;
-            }
-        }},
-        {title:"Age", field:"age",editor:"select", editorParams:{
-    values:[
-        {
-            label:"All",
-            value:0,
-        },
-        {
-            label:"18-25",
-            value:1,
-        },
-        {
-            label:"26-35",
-            value:2,
-        },
-        {
-            label:"36+",
-            value:3,
-        }
-    ],
-}, formatter:function(cell, formatterParams){
-            data = cell.getValue()
-            switch (data) {
-                case 0:
-                    return "All"
-                    break;
-                case 1:
-                    return "18-25"
-                    break;
-                case 2:
-                    return "26-35"
-                    break;
-                case 3:
-                    return "36+"
-                    break;
-                default:
-                    break;
-            }
-        }},
-        {title:"Langue", field:"lang", sorter:"date"},
-        {title:"Supprimer", field:"remove", formatter:"buttonCross",cellClick:deleteDisquette},
-        {title:"Date", field:"submittedAt", sorter:"date", formatter: function(cell, formatterParams) { 
-            return new Date(cell.getValue()).toLocaleString('fr-FR', { day: "2-digit", month: "2-digit", year: "numeric" })
-        }},
-        {title:"Note", field:"votes", sorter:"number", formatter:function(cell, formatterParams){
-
-            let ratio = (cell.getValue().up / cell.getValue().down *100)
-            if(!ratio) return "X"
-            return (ratio+ "%")
-        }},
-    ],
-}
-);
-
-
-
-
-
-
-
+	var table = new Tabulator('#tableHTML', {
+		ajaxURL: '/api/list/validate',
+		ajaxProgressiveLoad: 'scroll',
+		paginationSize: 20,
+		responsiveLayout: 'collapse',
+		cellEdited: cellEdit,
+		ajaxProgressiveLoadScrollMargin: 300,
+		placeholder: 'Pas de données',
+		layout: 'fitColumns',
+		columns: [
+			{
+				title: 'Disquette',
+				field: 'disquette',
+				editor: 'input',
+				sorter: 'string',
+                widthGrow:5,
+                variableHeight:true
+			},
+			{ title: 'Tags', editor: updateTags,  widthGrow:2, field: 'tags' },
+			{
+				title: 'Auteur',
+				field: 'author',
+				editor: 'input',
+				sorter: 'string',
+			},
+			//{title:"Rating", field:"rating", formatter:"star", align:"center", width:100},
+			{
+				title: 'Genre',
+				field: 'genre',
+				sorter: 'string',
+				editor: 'select',
+				editorParams: {
+					values: [
+						{
+							label: 'All',
+							value: 0,
+						},
+						{
+							label: 'Femme',
+							value: 1,
+						},
+						{
+							label: 'Homme',
+							value: 2,
+						},
+					],
+				},
+				formatter: function (cell, formatterParams) {
+					data = cell.getValue();
+					switch (data) {
+						case 0:
+							return 'All';
+							break;
+						case 1:
+							return 'Femme';
+							break;
+						case 2:
+							return 'Homme';
+							break;
+						default:
+							break;
+					}
+				},
+			},
+			{
+				title: 'Age',
+				field: 'age',
+				editor: 'select',
+				editorParams: {
+					values: [
+						{
+							label: 'All',
+							value: 0,
+						},
+						{
+							label: '18-25',
+							value: 1,
+						},
+						{
+							label: '26-35',
+							value: 2,
+						},
+						{
+							label: '36+',
+							value: 3,
+						},
+					],
+				},
+				formatter: function (cell, formatterParams) {
+					data = cell.getValue();
+					switch (data) {
+						case 0:
+							return 'All';
+							break;
+						case 1:
+							return '18-25';
+							break;
+						case 2:
+							return '26-35';
+							break;
+						case 3:
+							return '36+';
+							break;
+						default:
+							break;
+					}
+				},
+			},
+			{ title: 'Langue', field: 'lang', sorter: 'date' },
+			{
+				title: 'Date',
+				field: 'submittedAt',
+				sorter: 'date',
+				formatter: function (cell, formatterParams) {
+					return new Date(cell.getValue()).toLocaleString('fr-FR', {
+						day: '2-digit',
+						month: '2-digit',
+						year: 'numeric',
+					});
+				},
+			},
+			{
+				title: 'Note',
+				field: 'votes',
+				sorter: 'number',
+				formatter: function (cell, formatterParams) {
+					let ratio =
+						(cell.getValue().up / cell.getValue().down) * 100;
+					if (!ratio) return 'X';
+					return ratio + '%';
+				},
+			},
+			{
+				title: 'Supprimer',
+				field: 'remove',
+				formatter: 'buttonCross',
+				cellClick: deleteDisquette,
+			},
+		],
+	});
 </script>

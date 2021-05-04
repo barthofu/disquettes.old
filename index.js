@@ -1,5 +1,7 @@
 const app = require('./src/app');
 const mongoose = require('mongoose');
+const PORT = process.env.PORT || 4000;
+
 
 const config = require('./.credentials.json');
 
@@ -13,7 +15,7 @@ mongoose
 		console.log('connected to mongoDB!');
 		mongoose.set('useFindAndModify', false);
 
-		app.listen(4000, () => {
+		app.listen(PORT, () => {
 			console.log('server started ➜ localhost:4000');
 		});
 	});
