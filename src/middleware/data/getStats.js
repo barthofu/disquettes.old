@@ -1,15 +1,15 @@
-const mongoose = require("mongoose"),
-	dateFormat = require("dateformat"),
-	{ waitingDisquette, validateDisquette } = require("../../models/Disquette"),
+const mongoose = require('mongoose'),
+	dateFormat = require('dateformat'),
+	{ waitingDisquette, validateDisquette } = require('../../models/Disquette'),
 	visites = mongoose.model(
-		"visits",
-		require("../../models/Visite"),
-		"visits"
+		'visits',
+		require('../../models/Visite'),
+		'visits'
 	),
 	apiRequests = mongoose.model(
-		"apiRequests",
-		require("../../models/Visite"),
-		"apiRequests"
+		'apiRequests',
+		require('../../models/Visite'),
+		'apiRequests'
 	);
 
 module.exports = async (req, res, next) => {
@@ -41,14 +41,14 @@ async function getRequests(days) {
 				(res) =>
 					now - res.createdAt.getTime() < days * 24 * 60 * 60 * 1000
 			)
-			.map((res) => dateFormat(res.createdAt, "dd/mm")),
+			.map((res) => dateFormat(res.createdAt, 'dd/mm')),
 
 		visites: (await visites.find().select({ createdAt: 1 }).exec())
 			.filter(
 				(res) =>
 					now - res.createdAt.getTime() < days * 24 * 60 * 60 * 1000
 			)
-			.map((res) => dateFormat(res.createdAt, "dd/mm")),
+			.map((res) => dateFormat(res.createdAt, 'dd/mm')),
 	};
 }
 

@@ -1,14 +1,14 @@
-const { validateDisquette } = require("../../models/Disquette");
+const { validateDisquette } = require('../../models/Disquette');
 
 module.exports = (req, res, next) => {
 	const aggregatorOpts = [
 		{
-			$unwind: "$tags",
+			$unwind: '$tags',
 		},
 		{
 			$group: {
-				_id: "$tags",
-				tag: { $first: "$tags" },
+				_id: '$tags',
+				tag: { $first: '$tags' },
 				count: { $sum: 1 },
 			},
 		},

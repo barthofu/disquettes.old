@@ -1,5 +1,5 @@
-const passport = require("passport"),
-	Account = require("../../models/User");
+const passport = require('passport'),
+	Account = require('../../models/User');
 
 // eslint-disable-next-line no-unused-vars
 module.exports = (req, res, next) => {
@@ -13,14 +13,14 @@ module.exports = (req, res, next) => {
 
 	Account.register(acc, req.body.password)
 		.then(() => {
-			console.log("registering user: " + acc.username);
-			passport.authenticate("local")(req, res, function () {
-				return res.redirect(req.session.returnTo || "/");
+			console.log('registering user: ' + acc.username);
+			passport.authenticate('local')(req, res, function () {
+				return res.redirect(req.session.returnTo || '/');
 			});
 		})
 		.catch((err) => {
-			console.log("err register: " + err);
-			req.flash("error", "Création du compte impossible", err);
-			res.redirect("/auth/register");
+			console.log('err register: ' + err);
+			req.flash('error', 'Création du compte impossible', err);
+			res.redirect('/auth/register');
 		});
 };

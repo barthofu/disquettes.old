@@ -1,58 +1,52 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .side-bar {
-
-    width: 12vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: var(--primary-sidebar-background);
-    color: var(--primary-sidebar-text);
-    position: fixed;
+	width: 12vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: var(--primary-sidebar-background);
+	color: var(--primary-sidebar-text);
+	position: fixed;
 }
 
 .logo {
-    width: 100%;
-    padding: 2rem;
+	width: 100%;
+	padding: 2rem;
 }
 
 .tab {
-
-    display: flex;
-    width: 100%;
-    align-content: center;
-    height: 4rem;
+	display: flex;
+	width: 100%;
+	align-content: center;
+	height: 4rem;
 }
 
-
 .tab .text {
-    display: flex;
-    align-items: center;
-    margin-left: 1rem;
-    font-family: Mulish, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 16px;
-    
+	display: flex;
+	align-items: center;
+	margin-left: 1rem;
+	font-family: Mulish, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-size: 16px;
 }
 
 .tab .svg {
-    margin-left: 2rem;
-    width: 1.2rem;
-    fill: var(--primary-sidebar-text);
+	margin-left: 2rem;
+	width: 1.2rem;
+	fill: var(--primary-sidebar-text);
 }
 
 .current {
-    
-    background-color: var(--select-sidebar-background);
-    border-left: 0.3rem solid var(--select-sidebar-border);
-    color: var(--select-sidebar-text);
+	background-color: var(--select-sidebar-background);
+	border-left: 0.3rem solid var(--select-sidebar-border);
+	color: var(--select-sidebar-text);
 }
 
 .current .svg {
-
-    fill: var(--select-sidebar-text);
+	fill: var(--select-sidebar-text);
 }

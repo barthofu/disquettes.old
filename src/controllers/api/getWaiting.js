@@ -1,4 +1,4 @@
-const { waitingDisquette } = require("../../models/Disquette");
+const { waitingDisquette } = require('../../models/Disquette');
 
 module.exports = (req, res) => {
 	const pageOptions = {
@@ -12,14 +12,14 @@ module.exports = (req, res) => {
 			.findAll(pageOptions)
 			.then((results) => {
 				res.json({
-					status: "success",
+					status: 'success',
 					data: results,
 					last_page: Math.ceil(count / pageOptions.limit),
 				});
 			})
 			.catch((err) => {
 				res.json({
-					status: "error",
+					status: 'error',
 					message: err.message,
 					details: err,
 				});

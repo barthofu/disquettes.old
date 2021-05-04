@@ -1,7 +1,7 @@
-const Account = require("../../models/User");
+const Account = require('../../models/User');
 
 module.exports = (req, res, next) => {
-	console.log("registering user");
+	console.log('registering user');
 
 	const acc = new Account({
 		username: req.body.username,
@@ -16,12 +16,12 @@ module.exports = (req, res, next) => {
 
 		function (err) {
 			if (err) {
-				req.flash("error", "Création du compte impossible", err);
-				res.redirect("/auth/register");
+				req.flash('error', 'Création du compte impossible', err);
+				res.redirect('/auth/register');
 			}
 
-			req.flash("succes", "Création du compte réussie!");
-			console.log("new user registered!" + acc.username);
+			req.flash('succes', 'Création du compte réussie!');
+			console.log('new user registered!' + acc.username);
 
 			next();
 		}

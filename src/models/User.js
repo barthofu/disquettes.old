@@ -1,6 +1,6 @@
-const mongoose = require("mongoose"),
+const mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	passportLocalMongoose = require("passport-local-mongoose");
+	passportLocalMongoose = require('passport-local-mongoose');
 
 const Account = new Schema(
 	{
@@ -10,7 +10,7 @@ const Account = new Schema(
 		mail: { type: String, required: true },
 		age: { type: Number },
 		sexe: { type: String },
-		lang: { type: String, default: "FR" },
+		lang: { type: String, default: 'FR' },
 		roles: {
 			user: { type: Boolean, default: true },
 			modo: { type: Boolean, default: false },
@@ -32,8 +32,8 @@ const Account = new Schema(
 const passwordValidator = function (password, cb) {
 	if (password.length < 5) {
 		return cb({
-			name: "PasswordValidatorError",
-			message: "Gros donne un mot de passe avec plus de lettre stp",
+			name: 'PasswordValidatorError',
+			message: 'Gros donne un mot de passe avec plus de lettre stp',
 		});
 	}
 	// return an empty cb() on success
@@ -47,4 +47,4 @@ const opt = {
 
 Account.plugin(passportLocalMongoose, opt);
 
-module.exports = mongoose.model("Account", Account);
+module.exports = mongoose.model('Account', Account);

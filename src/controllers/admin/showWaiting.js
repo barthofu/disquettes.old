@@ -1,4 +1,4 @@
-const { waitingDisquette } = require("../../models/Disquette");
+const { waitingDisquette } = require('../../models/Disquette');
 
 module.exports = (req, res) => {
 	const pageOptions = {
@@ -9,13 +9,13 @@ module.exports = (req, res) => {
 	waitingDisquette
 		.findAll(pageOptions)
 		.then((results) => {
-			res.render("admin/layout", {
-				page: "waiting",
+			res.render('admin/layout', {
+				page: 'waiting',
 				disquette: results,
 				pageOptions: pageOptions,
 			});
 		})
 		.catch((err) => {
-			req.flash("error", err.message, err);
+			req.flash('error', err.message, err);
 		});
 };

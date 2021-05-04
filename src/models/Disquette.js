@@ -1,12 +1,12 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const disquetteSchema = mongoose.Schema(
 	{
 		disquette: [{ type: String, required: true }],
-		author: { type: String, default: "Annonymous" },
+		author: { type: String, default: 'Annonymous' },
 		genre: { type: Number, default: 0 },
 		age: { type: Number, default: 0 },
-		lang: { type: String, default: "FR" },
+		lang: { type: String, default: 'FR' },
 		tags: [{ type: String, default: [], lowercase: true }],
 		votes: {
 			up: { type: Number, default: 0 },
@@ -45,22 +45,22 @@ disquetteSchema.statics.findAll = function (
 disquetteSchema.statics.post = async function (args) {
 	let { disquette, tags, age = 0, author } = args;
 
-	if (!disquette) throw "missing disquette";
-	if (!tags) throw "missing tags";
-	if (author == "") args.author = undefined;
+	if (!disquette) throw 'missing disquette';
+	if (!tags) throw 'missing tags';
+	if (author == '') args.author = undefined;
 
 	tags = [].concat(tags).map((e) => e.toLowerCase());
 
-	if (age < 0 || age > 3) throw "bad age";
+	if (age < 0 || age > 3) throw 'bad age';
 
 	return new this(args).save();
 };
 
 const validateDisquette = mongoose.model(
-	"validate",
+	'validate',
 	disquetteSchema,
-	"validate"
+	'validate'
 );
-const waitingDisquette = mongoose.model("waiting", disquetteSchema, "waiting");
+const waitingDisquette = mongoose.model('waiting', disquetteSchema, 'waiting');
 
 module.exports = { validateDisquette, waitingDisquette, disquetteSchema };

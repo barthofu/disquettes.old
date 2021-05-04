@@ -1,7 +1,7 @@
 const {
 	waitingDisquette,
 	validateDisquette,
-} = require("../../models/Disquette");
+} = require('../../models/Disquette');
 
 module.exports = (req, res) => {
 	waitingDisquette.findByIdAndDelete(req.body.id).then((result) => {
@@ -9,7 +9,7 @@ module.exports = (req, res) => {
 
 		if (!result)
 			return res.json({
-				status: "error",
+				status: 'error',
 				message: `Disquette with id ${req.body.id} not found`,
 			});
 
@@ -19,14 +19,14 @@ module.exports = (req, res) => {
 			.save()
 			.then((data) => {
 				res.json({
-					status: "success",
-					message: "Disquette validated with success",
+					status: 'success',
+					message: 'Disquette validated with success',
 					data: data,
 				});
 			})
 			.catch((err) => {
 				res.json({
-					status: "error",
+					status: 'error',
 					message: err.message,
 					details: err,
 				});

@@ -1,9 +1,9 @@
 module.exports = function (options) {
-	if (typeof options == "string") options = { redirectTo: options };
+	if (typeof options == 'string') options = { redirectTo: options };
 
 	options = options || {};
 
-	let url = options.redirectTo || "/auth/login";
+	let url = options.redirectTo || '/auth/login';
 	let setReturnTo =
 		options.setReturnTo === undefined ? true : options.setReturnTo;
 

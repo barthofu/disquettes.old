@@ -1,9 +1,9 @@
 module.exports = function (options) {
-	if (typeof options == "string") options = { redirectTo: options };
+	if (typeof options == 'string') options = { redirectTo: options };
 
 	options = options || {};
 
-	let url = options.redirectTo || "/";
+	let url = options.redirectTo || '/';
 
 	return function (req, res, next) {
 		if (req.isAuthenticated && req.isAuthenticated())
