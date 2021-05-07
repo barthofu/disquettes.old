@@ -13,7 +13,7 @@
 
 }
 
-/* :root {
+:root {
 
     --primary-background: #141B2D;
     --primary-text: #FFE5E5;
@@ -27,7 +27,7 @@
     --badge-background: #1F2940;
     --badge-title: #9FA2B4;
 
-} */
+}
 
 body {
 
