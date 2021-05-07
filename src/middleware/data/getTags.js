@@ -1,11 +1,29 @@
-const { validateDisquette } = require("../../models/Disquette")
+const { validateDisquette } = require('../../models/Disquette');
 
-module.exports = async (req, res, next) => {
+module.exports = (req, res, next) => {
+	const aggregatorOpts = [
+		{
+			$unwind: '$tags',
+		},
+		{
+			$group: {
+				_id: '$tags',
+				tag: { $first: '$tags' },
+				count: { $sum: 1 },
+			},
+		},
+		{ $sort: { count: -1 } },
+	];
 
-    let results = await validateDisquette.find().exec()
-
-    req.tags = [...new Set(results.map(res => res.tags).flatMap(res => res))]
-
-    next()
-    
-}
+	validateDisquette
+		.aggregate(aggregatorOpts)
+		.exec()
+		.then((results) => {
+			//  req.tags = [...new Set(results.map(res => res.tags).flatMap(res => res))]
+			req.tags = results;
+			next();
+		})
+		.catch((e) => {
+			console.log(e);
+		});
+};

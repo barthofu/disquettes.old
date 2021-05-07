@@ -1,43 +1,36 @@
 header {
+	padding: 1rem 2rem;
+	position: fixed;
 
-    padding: 1rem 2rem;
-    position: fixed;
+	z-index: 5;
 
-    z-index: 5;
+	height: 10vh;
+	width: 100%;
 
-    height: 10vh;
-    width: 100%;
-
-    display: flex;
-    justify-content: space-between;
-
+	display: flex;
+	justify-content: space-between;
 }
 
 header > div {
-
-    display: flex;
-
+	display: flex;
 }
 
 .submit {
+	width: 40px;
+	margin-right: 1.5rem;
+	stroke: rgb(202, 202, 202);
 
-    width: 40px;
-    margin-right: 1.5rem;
-    stroke: rgb(202, 202, 202);
-
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .profile {
+	display: flex;
+	align-items: center;
 
-    display: flex;
-    align-items: center;
-
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .profile > img {
-
-    border-radius: 100px;
-    width: 40px
+	border-radius: 100px;
+	width: 40px;
 }

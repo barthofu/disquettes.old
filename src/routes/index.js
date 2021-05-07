@@ -1,11 +1,8 @@
-const express   = require('express'),
-      notFound  = require('../utils/404'),
+const express = require('express'),
+	getTags = require('../middleware/data/getTags');
 
-      getTags   = require('../middleware/data/getTags')
+let router = express.Router();
 
-let router      = express.Router()
+router.get('/', getTags, (req, res) => res.render('index', { tags: req.tags }));
 
-router
-  .get('/', getTags, (req, res) => res.render("index", { tags: req.tags }))
-
-module.exports = router
+module.exports = router;

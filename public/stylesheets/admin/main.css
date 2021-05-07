@@ -1,16 +1,14 @@
 :root {
+	--primary-background: #f7f8fc;
+	--primary-text: whitesmoke;
 
-    --primary-background: #F7F8FC;
-    --primary-text: whitesmoke;
+	--primary-sidebar-background: #374151;
+	--select-sidebar-background: #404959;
+	--select-sidebar-border: #dde2ff;
+	--primary-sidebar-text: whitesmoke;
 
-    --primary-sidebar-background: #374151;
-    --select-sidebar-background: #404959;
-    --select-sidebar-border: #DDE2FF;
-    --primary-sidebar-text: whitesmoke;
-
-    --badge-background: white;
-    --badge-title: #9FA2B4;
-
+	--badge-background: white;
+	--badge-title: #9fa2b4;
 }
 
 :root {
@@ -30,6 +28,5 @@
 }
 
 body {
-
-    background: var(--primary-background);
+	background: var(--primary-background);
 }
