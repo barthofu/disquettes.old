@@ -52,22 +52,6 @@ router
 		res.json(req.tags);
 	})
 
-	// .get('/disquette/:id',(req, res) =>{
-
-	//     console.log(req.params.id)
-	//     validateDisquette.findById(req.params.id).then(result => {
-
-	//         res.json(result)
-	//     }).catch(err =>{
-
-	//         res.json({
-	//             status: 'error',
-	//             message: `Disquette with id ${req.params.id} not found`,
-	//         })
-	//     })
-
-	// })
-
 	.get(notFound);
 
 module.exports = router;
