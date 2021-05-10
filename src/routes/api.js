@@ -9,6 +9,7 @@ const express = require('express'),
 	getListWaiting = require('../controllers/api/getWaiting.js'),
 	getListValidate = require('../controllers/api/getValidate.js'),
 	{ validateDisquette } = require('../models/Disquette');
+const getTags = require('../middleware/data/getTags');
 
 let router = express.Router();
 
@@ -38,7 +39,7 @@ router
 			});
 	})
 
-	.get('/get', apiRequestsCounter, get)
+	.get('/get/:id?', apiRequestsCounter, get)
 	//.get('/waiting', authLoggedIn(), getWaiting)
 	.get('/list/waiting', authLoggedIn(), getListWaiting)
 
@@ -46,6 +47,10 @@ router
 
 	.post('/validate', apiRequestsCounter, authLoggedIn(), validate)
 	.post('/delete', apiRequestsCounter, authLoggedIn(), deleteDisquette)
+
+	.get('/tags', apiRequestsCounter, getTags, (req, res) => {
+		res.json(req.tags);
+	})
 
 	// .get('/disquette/:id',(req, res) =>{
 

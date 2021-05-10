@@ -19,6 +19,22 @@ const girlNames = [
 module.exports = (req, res) => {
 	req.query.name = girlNames[Math.floor(Math.random() * girlNames.length)];
 
+	if (req.params.id) {
+		console.log('id');
+		return validateDisquette
+			.findById(req.params.id)
+			.then((result) => {
+				res.json(result);
+			})
+			.catch((err) => {
+				res.json({
+					status: 'error',
+					message: err.message,
+					details: err,
+				});
+			});
+	}
+
 	let {
 		tag = 'all',
 		age = 0,
