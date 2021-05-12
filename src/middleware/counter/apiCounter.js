@@ -7,19 +7,28 @@ const mongoose = require('mongoose'),
 	);
 
 module.exports = (req, res, next) => {
-	let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	let ip =
+		req.headers['x-forwarded-for'] ||
+		req.connection.remoteAddress ||
+		console.log(ip);
+	const defaultIp = ['::1', '::ffff:127.0.0.1', '127.0.0.1', null];
 
-	if (ip == '::1') ip = null;
+	if (ip in defaultIp) ip = '0.0.0.0';
+	let country = geoip.lookup(ip)?.country || 'NA';
 
 	new apiRequests({
 		ip,
 		createdAt: new Date(),
-		country: ip ? geoip.lookup(ip).country : 'unknown',
+		country: country,
 		url: req.path,
 		agent: req.headers['user-agent'],
 	})
 		.save()
 		.then(() => {
+			next();
+		})
+		.catch((err) => {
+			console.log(err);
 			next();
 		});
 };

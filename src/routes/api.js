@@ -9,6 +9,7 @@ const express = require('express'),
 	getListWaiting = require('../controllers/api/getWaiting.js'),
 	getListValidate = require('../controllers/api/getValidate.js'),
 	{ validateDisquette } = require('../models/Disquette');
+const getTags = require('../middleware/data/getTags');
 
 let router = express.Router();
 
@@ -38,7 +39,7 @@ router
 			});
 	})
 
-	.get('/get', apiRequestsCounter, get)
+	.get('/get/:id?', apiRequestsCounter, get)
 	//.get('/waiting', authLoggedIn(), getWaiting)
 	.get('/list/waiting', authLoggedIn(), getListWaiting)
 
@@ -47,21 +48,9 @@ router
 	.post('/validate', apiRequestsCounter, authLoggedIn(), validate)
 	.post('/delete', apiRequestsCounter, authLoggedIn(), deleteDisquette)
 
-	// .get('/disquette/:id',(req, res) =>{
-
-	//     console.log(req.params.id)
-	//     validateDisquette.findById(req.params.id).then(result => {
-
-	//         res.json(result)
-	//     }).catch(err =>{
-
-	//         res.json({
-	//             status: 'error',
-	//             message: `Disquette with id ${req.params.id} not found`,
-	//         })
-	//     })
-
-	// })
+	.get('/tags', apiRequestsCounter, getTags, (req, res) => {
+		res.json(req.tags);
+	})
 
 	.get(notFound);
 
