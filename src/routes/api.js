@@ -9,6 +9,7 @@ const express = require('express'),
 	getListWaiting = require('../controllers/api/getWaiting.js'),
 	getListValidate = require('../controllers/api/getValidate.js'),
 	{ validateDisquette } = require('../models/Disquette');
+const apiCounter = require('../middleware/counter/apiCounter');
 const getTags = require('../middleware/data/getTags');
 
 let router = express.Router();
@@ -50,6 +51,10 @@ router
 
 	.get('/tags', apiRequestsCounter, getTags, (req, res) => {
 		res.json(req.tags);
+	})
+	.get('/test', apiCounter, (req, res) => {
+		console.log(req.user);
+		res.json(req.cookies);
 	})
 
 	.get(notFound);
