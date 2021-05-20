@@ -13,6 +13,11 @@ module.exports = (req, res, next) => {
 			},
 		},
 		{ $sort: { count: -1 } },
+		{
+			$project: {
+				_id: false,
+			},
+		},
 	];
 
 	validateDisquette
