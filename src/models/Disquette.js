@@ -9,8 +9,8 @@ const disquetteSchema = mongoose.Schema(
 		lang: { type: String, default: 'FR' },
 		tags: [{ type: String, default: [], lowercase: true }],
 		votes: {
-			up: { type: Number, default: 0 },
-			down: { type: Number, default: 0 },
+			up: { type: Array, default: [] },
+			down: { type: Array, default: [] },
 		},
 		stats: {
 			spawned: [{ type: Date }],

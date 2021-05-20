@@ -7,9 +7,8 @@ const createError = require('http-errors'),
 	session = require('cookie-session'),
 	LocalStrategy = require('passport-local').Strategy,
 	Account = require('./models/User'),
-	flash = require('./middleware/error/flash'),
-	visitsCounter = require('./middleware/counter/visitsCounter');
-
+	flash = require('./middleware/error/flash');
+	
 var app = express();
 
 app.locals.title = 'Disquette';
@@ -51,8 +50,6 @@ const apiRoute = require('./routes/api');
 const webRoute = require('./routes/web');
 const adminRoute = require('./routes/admin');
 const authRoute = require('./routes/auth');
-
-app.use(visitsCounter);
 
 app.use('/admin', adminRoute);
 app.use('/', indexRoute);

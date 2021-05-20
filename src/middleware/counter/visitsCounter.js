@@ -8,6 +8,7 @@ const mongoose = require('mongoose'),
 	minutes = 10;
 
 module.exports = (req, res, next) => {
+	console.log(req.url);
 	if (req.path === '/admin') next();
 
 	let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -16,6 +17,7 @@ module.exports = (req, res, next) => {
 
 	visites.checkUser(ip, req.path, minutes).then((result) => {
 		if (result) {
+			console.log(true);
 			new visites({
 				ip,
 				createdAt: new Date(),
@@ -31,6 +33,8 @@ module.exports = (req, res, next) => {
 					next();
 				});
 		} else {
+			console.log(false);
+
 			next();
 		}
 	});
